@@ -1,0 +1,48 @@
+---
+- name: Configure NX-OS devices with individual config files
+  hosts: switches
+  gather_facts: no
+
+  
+  vars:
+    config_dir: "configs"
+    backup_dir: "backups"
+    config_file: "{{ config_dir }}/{{ inventory_hostname }}.cfg"
+    
+  tasks:
+    - name: Check if config file exists for this device
+      stat:
+        path: "{{ config_file }}"
+      register: config_file_stat
+      delegate_to: localhost
+      
+    - name: Fail if config file doesn't exist
+      fail:
+        msg: "Configuration file {{ config_file }} not found for {{ inventory_hostname }}"
+      when: not config_file_stat.stat.exists
+      
+    - name: Display config file being used
+      debug:
+        msg: "Using configuration file: {{ config_file }}"
+      
+    - name: Apply configuration from device-specific file
+      cisco.nxos.nxos_config:
+        src: "{{ config_file }}"
+        match: line
+        replace: line
+        backup: no
+      register: config_result
+      
+    - name: Show configuration changes made
+      debug:
+        var: config_result.commands
+      when: config_result.commands is defined and config_result.commands | length > 0
+      
+    - name: Display no changes message
+      debug:
+        msg: "No configuration changes needed for {{ inventory_hostname }}"
+      when: config_result.commands is not defined or config_result.commands | length == 0
+      
+    - name: Save configuration to memory
+      cisco.nxos.nxos_config:
+        save_when: modified

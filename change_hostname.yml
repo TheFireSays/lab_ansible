@@ -1,0 +1,63 @@
+---
+- name: Change hostnames from 'fab' to 'st' on spines and leafs
+  hosts: spines:leafs
+  gather_facts: no
+  
+  vars:
+    backup_dir: "backups"
+    
+  tasks:
+    - name: Create backup directory
+      file:
+        path: "{{ backup_dir }}"
+        state: directory
+      delegate_to: localhost
+      run_once: true
+    
+    - name: Check if hostname contains 'fab'
+      set_fact:
+        hostname_needs_change: "{{ 'fab' in inventory_hostname }}"
+        new_hostname: "{{ inventory_hostname | replace('.firelab.com', '') | replace('fab', 'st') }}"
+    
+    - name: Display hostname change information
+      debug:
+        msg: 
+          - "Current hostname: {{ inventory_hostname }}"
+          - "New hostname will be: {{ new_hostname }}"
+          - "Hostname needs change: {{ hostname_needs_change }}"
+    
+    - name: Skip devices that don't contain 'fab'
+      debug:
+        msg: "Skipping {{ inventory_hostname }} - no 'fab' found in hostname"
+      when: not hostname_needs_change
+    
+    - name: Change hostname on NX-OS device
+      cisco.nxos.nxos_config:
+        lines:
+          - "hostname {{ new_hostname }}"
+        match: line
+        replace: line
+      register: hostname_result
+      when: hostname_needs_change
+    
+    - name: Display hostname change results
+      debug:
+        var: hostname_result.commands
+      when: hostname_needs_change and hostname_result.commands is defined
+    
+    - name: Save configuration
+      cisco.nxos.nxos_config:
+        save_when: modified
+      when: hostname_needs_change
+    
+    - name: Verify new hostname
+      cisco.nxos.nxos_command:
+        commands:
+          - show hostname
+      register: verify_hostname
+      when: hostname_needs_change
+    
+    - name: Display verification results
+      debug:
+        msg: "New hostname verified: {{ verify_hostname.stdout[0] }}"
+      when: hostname_needs_change and verify_hostname is defined

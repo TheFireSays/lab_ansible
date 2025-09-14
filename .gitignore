@@ -1,0 +1,26 @@
+# Ansible
+*.retry
+.vault_pass
+logs/
+backups/
+*.log
+
+# Sensitive files
+*password*
+*secret*
+credentials.yml
+vault.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*~
+.tmp/
