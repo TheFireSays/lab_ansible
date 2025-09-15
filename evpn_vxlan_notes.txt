@@ -1,0 +1,187 @@
+##### EVPN-VXLAN #####
+
+## Part 1 underlay & VXLAN ##
+
+features
+	
+LAGs - L3?
+loopback0 - router id OSPF/ multicast (underlay)
+loopback1 - BGP
+loopback2
+Increase MTU jumbo frames on port channel ints (9216)
+OSPF
+	point to point spine to leaf {MS SSP to SP to lf?}
+	
+multicast
+	multicast group?
+	add pim to interfaces. physical and loop0
+		ip pim sparse-mode
+	Rend pt: Global conf
+		ip pim rp-address [supperspines probably oopback0 add]
+	Conf superspines as pim rp
+	Conf vlans
+	conf SVIs
+	
+VXLAN
+	vn-segment on SVI - VNI
+		map VNI to VLAN
+	VNE
+		int nve1
+			source-interface l0
+			member vni [VNI]
+				mcast-cast group [IP/ID]
+			member VNI [VNI]
+				mcast-cast group [IP/ID]
+			no sh
+			
+TCAM carving? - dedicating tcam space for vxlan
+	sh hardware access-list tcam region
+	hardware access-list tcam region racl 512 - decrease one spot (racl)
+	hardware access-list tcam region arp-ether 256 double-wide - dedicate that space here
+	reload - for this to take effect
+
+
+	
+---Show commands---
+show port-channel summary
+show port-channel usage
+sh hardware access-list tcam region
+sh nve peers
+sh nve vni	
+
+
+
+___________________________________________
+## Part 2 Overlay/BGP-EVPN control plane ##
+
+
+BGP- ipv4
+	private range AS
+	iBGP within site
+	eBGP between sites?
+	SSP(?) route reflectors
+	
+	router bgp 65000
+		address-family ipv4 unicast
+			network [net/mask to advertise] *loopback and 
+		neighbor [[p2p peer ip from spine to leaf, ssp to sp]]
+			remote-as 65000
+			address-family ipv4 unicast
+			
+			(*for all neighbors)
+			
+
+BGP-EVPN
+	router bgp 65000
+		address-family l2vpn evpn
+			neighbor [peer ip] activate 	*same neighbor commands as ipv4 address-family
+			neighbor [peer ip] route-reflector-client 	* this is on spines, not leafs
+			neighbor [peer ip] send-community extended
+			
+			neighbor [peer ip]
+				remote-as 65000
+				address-family l2vpn evpn
+				send-community extended
+				(*for all neighbors)
+			
+
+EVPN
+	evpn
+		vni [vni id] l2
+			rd auto
+			route-target both auto
+			
+			(*for all NVIs)
+			
+	int nve1	
+		host-reachability bgp
+
+
+---Show commands---
+
+
+		
+---T/S commands---
+down multicast at SSP and see if evpn routes
+no ip pim spars		
+		
+___________________________________________
+## Part 3 Anycast, L3 VNI, redistribute direct routes ##
+	Create VRF, conf SVIs for anycast GWs, attach them to EVPN VRF
+	L3 VNI, SVI, VLAN
+	Attach l3 VNI to NVE int
+	Activate BGP-EVPN 
+
+vrf context EVPN
+fabric forwarding anycast-gateway-mac [mac]
+
+int vlan[#] (Abycast gateways on VTEPs)
+	vrf member EVPN
+		ip add [ip]
+		fabric forwarding mode anycast-gateway
+		no sh
+
+vlan 333
+	vn-segment 333333
+	
+vrf context EVPN-VXLAN
+	vni 333333
+	rd auto
+	address-family ipv4 unicast
+		route-target both auto
+		route-target both auto evpn
+		
+int vlan333
+	vrf member EVPN
+	ip forward
+	
+int nve1
+	member vni 333333 associate-vrf
+	
+route-map PERMIT_ALL permit 10
+
+router bgp 650000
+	vrf EVPN
+	address-familyipv4 unicast
+		redistribute direct PERMIT_ALL
+		
+		
+		
+---Show commands---
+
+sh ip route vrf EVPN
+sh run | sec bgp
+sh run | sec vrf
+		
+		
+---T/S commands---
+
+
+________________________________________________________________________________
+^^^ Research ^^^
+multisite ingress replication (arp)
+route reflector - necessary to avoid full mesh req
+Route distinguisher - unique route
+route target - export/import
+better solution for net diagram
+
+--Learn--
+Netbox
+Prometheus? Solarwinds?
+Grafana
+________________________________________________________________________________	
+ 
+Config snippets
+
+### L3 port-channel ###
+int port-channel [#]
+	desc
+	no sw
+	ip add [ip] [mask]
+	mtu 		???
+	
+int e0/1
+	channel-group [3]
+	
+### L3 port-channel ###
+	
