@@ -12,32 +12,32 @@ superspines:
 
 spines:
   hosts:
-    dub-fab1-sp1.firelab.com:
+    dub-st1-sp1.firelab.com:
       ansible_host: 1.1.1.5
-    dub-fab1-sp2.firelab.com:
+    dub-st1-sp2.firelab.com:
       ansible_host: 1.1.1.6
-    dub-fab2-sp1.firelab.com:
+    dub-st2-sp1.firelab.com:
       ansible_host: 1.1.1.7
-    dub-fab2-sp2.firelab.com:
+    dub-st2-sp2.firelab.com:
       ansible_host: 1.1.1.8
-    dub-fab3-sp1.firelab.com:
+    dub-st3-sp1.firelab.com:
       ansible_host: 1.1.1.9
-    dub-fab3-sp2.firelab.com:
+    dub-st3-sp2.firelab.com:
       ansible_host: 1.1.1.10
 
 leafs:
   hosts:
-    dub-fab1-lf1.firelab.com:
+    dub-st1-lf1.firelab.com:
       ansible_host: 1.1.1.11
-    dub-fab1-lf2.firelab.com:
+    dub-st1-lf2.firelab.com:
       ansible_host: 1.1.1.12
-    dub-fab2-lf1.firelab.com:
+    dub-st2-lf1.firelab.com:
       ansible_host: 1.1.1.13
-    dub-fab2-lf2.firelab.com:
+    dub-st2-lf2.firelab.com:
       ansible_host: 1.1.1.14
-    dub-fab3-lf1.firelab.com:
+    dub-st3-lf1.firelab.com:
       ansible_host: 1.1.1.15
-    dub-fab3-lf2.firelab.com:
+    dub-st3-lf2.firelab.com:
       ansible_host: 1.1.1.16
 
 mgmt_switches:
