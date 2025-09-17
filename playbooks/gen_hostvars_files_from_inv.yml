@@ -1,0 +1,23 @@
+---
+- name: Create empty host_vars files from inventory
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ensure config directory exists
+      file:
+        path: ./host_vars
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+      run_once: true
+
+    - name: Create empty file in host_vars
+      file:
+        path: "../host_vars/{{ inventory_hostname | replace('.firelab.com', '') }}.yml"
+        state: touch
+        mode: '0644'
+      delegate_to: localhost
+
+    - name: Display created files
+      debug:
+        msg: "host_vars file created: host_vars/{{ inventory_hostname | replace('.firelab.com', '') }}.yml"

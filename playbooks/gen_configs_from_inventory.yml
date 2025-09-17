@@ -1,0 +1,23 @@
+---
+- name: Create config files for each inventory host
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ensure config directory exists
+      file:
+        path: ./configs
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+      run_once: true
+
+    - name: Create config file placeholder for each host
+      file:
+        path: "../configs/{{ inventory_hostname | replace('.firelab.com', '') }}.cfg"
+        state: touch
+        mode: '0644'
+      delegate_to: localhost
+
+    - name: Display created files
+      debug:
+        msg: "Config file created: configs/{{ inventory_hostname | replace('.firelab.com', '') }}.cfg"

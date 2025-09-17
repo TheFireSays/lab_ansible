@@ -1,0 +1,38 @@
+#Jinja template file for NX-OS data switches
+
+#Enable necessary features
+{% for feature in (enabled_features | default([])) + (host_enabled_features | default([])) %}
+{{ feature }}
+{% endfor %}
+
+#Routed port-channel interfaces
+no switchport
+{% for pc in portchannels %}
+interface Port-channel{{ pc.number }}
+ description {{ pc.description }}
+ ip address {{ pc.ip }} {{ pc.subnet_mask }}
+ mtu 9216
+
+no shutdown
+
+##Port-channel member interfaces for Port-channel{{ pc.number }}
+{% for member in pc.members %}
+interface {{member}}
+ channel-group {{ pc.number }} mode active
+ no shutdown
+
+ {% endfor %}
+
+ {% endfor %}
+
+###Common configurations
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ privilege level 15
+ transport input ssh
+

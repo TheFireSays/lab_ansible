@@ -1,0 +1,56 @@
+---
+
+portchannels:
+  - number: 111
+    description: "Downlink to sub-st1-sp1"
+    ip: "30.30.30.1"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/1"
+      - "e1/2"
+    lacp_mode: "active"
+    
+  - number: 112
+    description: "Downlink to dub-st1-sp2"
+    ip: "130.30.30.5"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/3"
+      - "e1/4"
+    lacp_mode: "active"
+
+  - number: 121
+    description: "Downlink to dub-st2-sp1"
+    ip: "30.30.30.9"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/5"
+      - "e1/6"
+    lacp_mode: "active"
+    
+  - number: 122
+    description: "Downlink to dub-st2-sp2"
+    ip: "30.30.30.13"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/7"
+      - "e1/8"
+    lacp_mode: "active"
+
+  - number: 131
+    description: "Downlink to dub-st3-sp1"
+    ip: "30.30.30.17"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/1"
+      - "e1/2"
+    lacp_mode: "active"
+    
+  - number: 132
+    description: "Downlink to dub-st3-sp2"
+    ip: "30.30.30.21"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/3"
+      - "e1/4"
+    lacp_mode: "active"

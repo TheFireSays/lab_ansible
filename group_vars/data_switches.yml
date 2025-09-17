@@ -1,0 +1,12 @@
+enabled features:
+- feature lldp
+- feature ospf
+- feature bgp
+- feature lacp
+- feature pim
+- feature vn-segment-vlan-based
+- feature nv overlay
+- feature fabric forwarding
+- feature interface-vlan
+- feature bfd
+- nv overlay evpn
