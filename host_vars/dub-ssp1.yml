@@ -2,7 +2,7 @@
 
 portchannels:
   - number: 111
-    description: "Downlink to sub-st1-sp1"
+    description: "Downlink to dub-st1-sp1"
     ip: "30.30.30.1"
     subnet_mask: "255.255.255.252"
     members:
@@ -42,8 +42,8 @@ portchannels:
     ip: "30.30.30.17"
     subnet_mask: "255.255.255.252"
     members:
-      - "e1/1"
-      - "e1/2"
+      - "e1/9"
+      - "e1/10"
     lacp_mode: "active"
     
   - number: 132
@@ -53,4 +53,7 @@ portchannels:
     members:
       - "e1/3"
       - "e1/4"
+    lacp_mode: "active"
+      - "e1/11"
+      - "e1/12"
     lacp_mode: "active"

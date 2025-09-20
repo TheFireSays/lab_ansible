@@ -1,0 +1,21 @@
+---
+
+portchannels:
+  - number: 1111
+    description: "Uplink to dub-st3-sp1"
+    ip: "30.30.30.135"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/1"
+      - "e1/2"
+    lacp_mode: "active"
+    
+  - number: 1112
+    description: "Uplink to dub-st3-sp2"
+    ip: "30.30.30.143"
+    subnet_mask: "255.255.255.252"
+    members:
+      - "e1/3"
+      - "e1/4"
+    lacp_mode: "active"
+
