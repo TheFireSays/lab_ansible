@@ -4,11 +4,8 @@
   tasks:
     - name: Generate config from template
       template:
-        src: data_switch_template.j2
-        dest: ./configs/{{ inventory_hostname }}_cfg.txt
-
+        src: "{{ playbook_dir }}/../templates/data_switches_template.j2"
+        dest: "{{ playbook_dir }}/../configs/{{ inventory_hostname }}.cfg"
+        
     - name: Append timestamp comment to config file
-      lineinfile:
-        path: ./configs/{{ inventory_hostname }}_cfg.txt
-        line: "#Config created via Jinja template on {{ ansible_date_time.iso8601 }}."
-        insertafter: EOF
+      shell: echo "#Config created via Jinja template on $(date -Iseconds)." >> "{{ playbook_dir }}/../configs/{{ inventory_hostname }}_cfg.txt"

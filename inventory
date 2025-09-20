@@ -1,29 +1,29 @@
 [superspines]
-dub-ssp1.firelab.com ansible_host=1.1.1.1
-dub-ssp2.firelab.com ansible_host=1.1.1.2
-dub-ssp3.firelab.com ansible_host=1.1.1.3
-dub-ssp4.firelab.com ansible_host=1.1.1.4
+dub-ssp1 ansible_host=1.1.1.1
+dub-ssp2 ansible_host=1.1.1.2
+dub-ssp3 ansible_host=1.1.1.3
+dub-ssp4 ansible_host=1.1.1.4
 
 [spines]
-dub-st1-sp1.firelab.com ansible_host=1.1.1.5
-dub-st1-sp2.firelab.com ansible_host=1.1.1.6
-dub-st2-sp1.firelab.com ansible_host=1.1.1.7
-dub-st2-sp2.firelab.com ansible_host=1.1.1.8
-dub-st3-sp1.firelab.com ansible_host=1.1.1.9
-dub-st3-sp2.firelab.com ansible_host=1.1.1.10
+dub-st1-sp1 ansible_host=1.1.1.5
+dub-st1-sp2 ansible_host=1.1.1.6
+dub-st2-sp1 ansible_host=1.1.1.7
+dub-st2-sp2 ansible_host=1.1.1.8
+dub-st3-sp1 ansible_host=1.1.1.9
+dub-st3-sp2 ansible_host=1.1.1.10
 
 [leafs]
-dub-st1-lf1.firelab.com ansible_host=1.1.1.11
-dub-st1-lf2.firelab.com ansible_host=1.1.1.12
-dub-st2-lf1.firelab.com ansible_host=1.1.1.13
-dub-st2-lf2.firelab.com ansible_host=1.1.1.14
-dub-st3-lf1.firelab.com ansible_host=1.1.1.15
-dub-st3-lf2.firelab.com ansible_host=1.1.1.16
+dub-st1-lf1 ansible_host=1.1.1.11
+dub-st1-lf2 ansible_host=1.1.1.12
+dub-st2-lf1 ansible_host=1.1.1.13
+dub-st2-lf2 ansible_host=1.1.1.14
+dub-st3-lf1 ansible_host=1.1.1.15
+dub-st3-lf2 ansible_host=1.1.1.16
 
 [mgmt_switches]
-dub-ssp-mgmt.firelab.com ansible_host=1.1.1.17
-dub-sp-mgmt.firelab.com ansible_host=1.1.1.18
-dub-lf-mgmt.firelab.com ansible_host=1.1.1.19
+dub-ssp-mgmt ansible_host=1.1.1.17
+dub-sp-mgmt ansible_host=1.1.1.18
+dub-lf-mgmt ansible_host=1.1.1.19
 
 [data_switches:children]
 superspines

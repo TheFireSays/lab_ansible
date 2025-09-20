@@ -1,13 +1,13 @@
 ---
 - name: Configure NX-OS devices with individual config files
-  hosts: switches
+  hosts: data_switches
   gather_facts: no
 
   
   vars:
     config_dir: "configs"
     backup_dir: "backups"
-    config_file: "{{ config_dir }}/{{ inventory_hostname }}.cfg"
+    config_file: "{{ playbook_dir }}/../{{ config_dir }}/{{ inventory_hostname }}.cfg"
     
   tasks:
     - name: Check if config file exists for this device

@@ -6,9 +6,9 @@
 {% endfor %}
 
 #Routed port-channel interfaces
-no switchport
 {% for pc in portchannels %}
 interface Port-channel{{ pc.number }}
+ no switchport
  description {{ pc.description }}
  ip address {{ pc.ip }} {{ pc.subnet_mask }}
  mtu 9216
@@ -26,13 +26,7 @@ interface {{member}}
  {% endfor %}
 
 ###Common configurations
-line con 0
- exec-timeout 0 0
- privilege level 15
- logging synchronous
 
-line vty 0 4
- exec-timeout 0 0
- privilege level 15
- transport input ssh
+
+
 
