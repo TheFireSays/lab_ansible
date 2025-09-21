@@ -1,28 +1,27 @@
 ---
- - name: Full configuration
-   hosts: data_switches
-   gather_facts: no
-
-   vars:
-     template: "{{ playbook_dir }}/../templates/data_switches.yml"
-
+- name: Full configuration
+  hosts: data_switches
+  gather_facts: no
+  vars:
+    template: "{{ playbook_dir }}/../templates/data_switches.yml"
+  
   tasks:
-    -name: Enable require features
+    - name: Enable required features
       cisco.nxos.nxos_feature:
-        feature: "{{ feature }}"
+        feature: "{{ item }}"
         state: enabled
       loop: "{{ enabled_features }}"
 
     - name: Enable special features
       cisco.nxos.nxos_config:
-        lines: "{{ special_features}}"
+        lines: "{{ special_features }}"
 
     - name: Port-channel config
       cisco.nxos.nxos_lag_interfaces:
         config: "{{ portchannels }}"
         state: merged
 
-#    - name: Configure routed interfaces
-#      cisco.nxos.nxos_l3_interfaces:
-#        config: "{{ l3_interfaces }}"
-#        state: merged
+    # - name: Configure routed interfaces
+    #   cisco.nxos.nxos_l3_interfaces:
+    #     config: "{{ l3_interfaces }}"
+    #     state: merged
