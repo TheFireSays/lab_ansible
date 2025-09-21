@@ -1,0 +1,98 @@
+---
+- name: LAG Configuration Troubleshooting
+  hosts: data_switches
+  gather_facts: no
+  vars:
+    template: "{{ playbook_dir }}/../templates/data_switches.yml"
+  
+  tasks:
+    - name: Check current configuration before changes
+      cisco.nxos.nxos_command:
+        commands:
+          - "show running-config | include 'interface port-channel'"
+          - "show running-config | include 'channel-group'"
+          - "show port-channel summary"
+          - "show feature | include lacp"
+      register: before_config
+
+    - name: Display current state
+      debug:
+        var: before_config
+
+    - name: Enable LACP feature explicitly
+      cisco.nxos.nxos_feature:
+        feature: lacp
+        state: enabled
+
+    - name: Test creating a single port-channel manually
+      cisco.nxos.nxos_config:
+        lines:
+          - "interface port-channel999"
+          - "description Test LAG Interface"
+          - "no shutdown"
+        save_when: modified
+
+    - name: Test assigning a member to the test port-channel
+      cisco.nxos.nxos_config:
+        lines:
+          - "channel-group 999 mode active"
+          - "no shutdown"
+        parents: "interface Ethernet1/13"
+        save_when: modified
+
+    - name: Check if test configuration applied
+      cisco.nxos.nxos_command:
+        commands:
+          - "show running-config interface port-channel999"
+          - "show running-config interface Ethernet1/13"
+          - "show port-channel summary"
+      register: test_config
+
+    - name: Display test results
+      debug:
+        var: test_config
+
+    - name: Clean up test configuration
+      cisco.nxos.nxos_config:
+        lines:
+          - "no interface port-channel999"
+          - "no channel-group 999"
+        parents: "interface Ethernet1/13"
+        save_when: modified
+
+    - name: Try LAG module with single interface for testing
+      cisco.nxos.nxos_lag_interfaces:
+        config:
+          - name: port-channel998
+            members:
+              - member: Ethernet1/14
+                mode: active
+        state: merged
+      register: lag_test_result
+
+    - name: Display LAG module test result
+      debug:
+        var: lag_test_result
+
+    - name: Check if LAG module configuration applied
+      cisco.nxos.nxos_command:
+        commands:
+          - "show running-config interface port-channel998"
+          - "show running-config interface Ethernet1/14"
+          - "show port-channel summary"
+      register: lag_module_test
+
+    - name: Display LAG module verification
+      debug:
+        var: lag_module_test
+
+    - name: Check startup-config vs running-config
+      cisco.nxos.nxos_command:
+        commands:
+          - "show startup-config | include 'channel-group'"
+          - "show running-config | include 'channel-group'"
+      register: config_comparison
+
+    - name: Display configuration comparison
+      debug:
+        var: config_comparison

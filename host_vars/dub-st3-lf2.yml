@@ -1,21 +1,32 @@
 ---
+lag_interfaces:
+  - name: port-channel1111
+    members:
+      - member: Ethernet1/1
+        mode: active
+      - member: Ethernet1/2
+        mode: active
+  - name: port-channel1112
+    members:
+      - member: Ethernet1/3
+        mode: active
+      - member: Ethernet1/4
+        mode: active
 
-portchannels:
-  - number: 1111
+l3_interfaces:
+  - name: port-channel1111
+    ipv4:
+      - address: 30.30.30.135/30
+  - name: port-channel1112
+    ipv4:
+      - address: 30.30.30.143/30
+
+interfaces:
+  - name: port-channel1111
     description: "Uplink to dub-st3-sp1"
-    ip: "30.30.30.135"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/1"
-      - "e1/2"
-    lacp_mode: "active"
-    
-  - number: 1112
+    mtu: 9216
+    enabled: true
+  - name: port-channel1112
     description: "Uplink to dub-st3-sp2"
-    ip: "30.30.30.143"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/3"
-      - "e1/4"
-    lacp_mode: "active"
-
+    mtu: 9216
+    enabled: true

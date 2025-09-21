@@ -10,5 +10,5 @@ enabled_features:
 - interface-vlan
 - bfd
 
-speacial_features:
+special_features:
 - nv overlay evpn

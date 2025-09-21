@@ -1,57 +1,84 @@
 ---
+lag_interfaces:
+  - name: port-channel111
+    members:
+      - member: Ethernet1/1
+        mode: active
+      - member: Ethernet1/2
+        mode: active
+  - name: port-channel211
+    members:
+      - member: Ethernet1/3
+        mode: active
+      - member: Ethernet1/4
+        mode: active
+  - name: port-channel311
+    members:
+      - member: Ethernet1/5
+        mode: active
+      - member: Ethernet1/6
+        mode: active
+  - name: port-channel411
+    members:
+      - member: Ethernet1/7
+        mode: active
+      - member: Ethernet1/8
+        mode: active
+  - name: port-channel2121
+    members:
+      - member: Ethernet1/9
+        mode: active
+      - member: Ethernet1/10
+        mode: active
+  - name: port-channel2122
+    members:
+      - member: Ethernet1/11
+        mode: active
+      - member: Ethernet1/12
+        mode: active
 
-portchannels:
-  - number: 111
+l3_interfaces:
+  - name: port-channel111
+    ipv4:
+      - address: 30.30.30.10/30
+  - name: port-channel211
+    ipv4:
+      - address: 30.30.30.34/30
+  - name: port-channel311
+    ipv4:
+      - address: 30.30.30.58/30
+  - name: port-channel411
+    ipv4:
+      - address: 30.30.30.82/30
+  - name: port-channel2121
+    ipv4:
+      - address: 30.30.30.113/30
+  - name: port-channel2122
+    ipv4:
+      - address: 30.30.30.117/30
+
+interfaces:
+  - name: port-channel111
     description: "Uplink to dub-ssp1"
-    ip: "30.30.30.10"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/1"
-      - "e1/2"
-    lacp_mode: "active"
-    
-  - number: 211
+    mtu: 9216
+    enabled: true
+  - name: port-channel211
     description: "Uplink to dub-ssp2"
-    ip: "30.30.30.34"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/3"
-      - "e1/4"
-    lacp_mode: "active"
-
-  - number: 311
+    mtu: 9216
+    enabled: true
+  - name: port-channel311
     description: "Uplink to dub-ssp3"
-    ip: "30.30.30.58"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/5"
-      - "e1/6"
-    lacp_mode: "active"
-    
-  - number: 411
+    mtu: 9216
+    enabled: true
+  - name: port-channel411
     description: "Uplink to dub-ssp4"
-    ip: "30.30.30.82"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/7"
-      - "e1/8"
-    lacp_mode: "active"
-
-  - number: 2121
+    mtu: 9216
+    enabled: true
+  - name: port-channel2121
     description: "Downlink to dub-st2-lf1"
-    ip: "30.30.30.113"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/9"
-      - "e1/10"
-    lacp_mode: "active"
-    
-  - number: 2122
+    mtu: 9216
+    enabled: true
+  - name: port-channel2122
     description: "Downlink to dub-st2-lf2"
-    ip: "30.30.30.117"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/11"
-      - "e1/12"
-    lacp_mode: "active"
-
+    mtu: 9216
+    enabled: true

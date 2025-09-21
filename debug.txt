@@ -1,0 +1,918 @@
+
+PLAY [LAG Configuration with Cleanup and MTU Fix] ******************************
+
+TASK [Remove existing channel-group assignments from member interfaces] ********
+changed: [dub-ssp4] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel312'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel312'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel321'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel321'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel412'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel322'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel322'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel212'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel331'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel331'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel412'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel332'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel212'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel332'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel421'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel221'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel121'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel421'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel221'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel121'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel422'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel222'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel122'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel422'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel222'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel122'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel431'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel131'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel231'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel431'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel131'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel231'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel432'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel132'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel232'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-ssp4] => (item=[{'name': 'port-channel432'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st1-sp1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-ssp1] => (item=[{'name': 'port-channel132'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-ssp2] => (item=[{'name': 'port-channel232'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel1211'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel1211'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel1212'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st1-sp2] => (item=[{'name': 'port-channel1212'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+changed: [dub-st1-lf1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+changed: [dub-st1-lf1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+changed: [dub-st1-lf1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel2221'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+changed: [dub-st1-lf1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel2221'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel2222'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-st1-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-sp1] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel3132'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel3232'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+changed: [dub-st2-sp2] => (item=[{'name': 'port-channel2222'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st1-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st3-sp1] => (item=[{'name': 'port-channel3132'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st3-sp2] => (item=[{'name': 'port-channel3232'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+changed: [dub-st2-lf2] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st1-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st2-lf1] => (item=[{'name': 'port-channel2111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-lf2] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st2-lf1] => (item=[{'name': 'port-channel2111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st1-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st2-lf2] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st3-lf1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-lf2] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st3-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+changed: [dub-st2-lf1] => (item=[{'name': 'port-channel2112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st3-lf1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st3-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st2-lf1] => (item=[{'name': 'port-channel2112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st3-lf1] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st3-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+changed: [dub-st3-lf1] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-st3-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+
+TASK [Set MTU on member interfaces to 9216] ************************************
+ok: [dub-ssp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel212'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel412'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel212'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+changed: [dub-ssp3] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel412'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel221'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel121'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel421'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel221'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel312'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel421'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel121'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel312'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel222'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel422'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel122'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel222'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel321'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel422'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel122'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel321'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel231'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel431'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel131'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel231'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel431'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel322'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel131'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel432'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel232'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel322'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel132'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-ssp2] => (item=[{'name': 'port-channel232'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-ssp4] => (item=[{'name': 'port-channel432'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st1-sp1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel331'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-ssp1] => (item=[{'name': 'port-channel132'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel331'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel332'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-ssp3] => (item=[{'name': 'port-channel332'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel211'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/5', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel1211'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel311'}, {'member': 'Ethernet1/6', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel1211'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/7', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel1212'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel411'}, {'member': 'Ethernet1/8', 'mode': 'active'}])
+ok: [dub-st1-sp2] => (item=[{'name': 'port-channel1212'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st2-sp1] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel2221'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel3132'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/9', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel2221'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-st3-sp1] => (item=[{'name': 'port-channel3132'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/10', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel2222'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel3232'}, {'member': 'Ethernet1/11', 'mode': 'active'}])
+ok: [dub-st2-sp2] => (item=[{'name': 'port-channel2222'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st1-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st1-lf1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st3-sp2] => (item=[{'name': 'port-channel3232'}, {'member': 'Ethernet1/12', 'mode': 'active'}])
+ok: [dub-st1-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st1-lf1] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st2-lf1] => (item=[{'name': 'port-channel2111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st1-lf1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st1-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st2-lf1] => (item=[{'name': 'port-channel2111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st2-lf2] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st1-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st1-lf1] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st2-lf1] => (item=[{'name': 'port-channel2112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st3-lf1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st2-lf2] => (item=[{'name': 'port-channel2121'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st2-lf1] => (item=[{'name': 'port-channel2112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st3-lf1] => (item=[{'name': 'port-channel3131'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+ok: [dub-st3-lf1] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st3-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/1', 'mode': 'active'}])
+ok: [dub-st3-lf1] => (item=[{'name': 'port-channel3231'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st3-lf2] => (item=[{'name': 'port-channel1111'}, {'member': 'Ethernet1/2', 'mode': 'active'}])
+changed: [dub-st2-lf2] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st3-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/3', 'mode': 'active'}])
+ok: [dub-st2-lf2] => (item=[{'name': 'port-channel2122'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+ok: [dub-st3-lf2] => (item=[{'name': 'port-channel1112'}, {'member': 'Ethernet1/4', 'mode': 'active'}])
+
+TASK [Configure port-channels and member interfaces] ***************************
+changed: [dub-ssp3]
+changed: [dub-st1-sp1]
+changed: [dub-ssp4]
+changed: [dub-ssp2]
+changed: [dub-ssp1]
+changed: [dub-st2-sp1]
+changed: [dub-st3-sp2]
+changed: [dub-st2-sp2]
+changed: [dub-st1-sp2]
+changed: [dub-st3-sp1]
+changed: [dub-st1-lf2]
+changed: [dub-st2-lf1]
+changed: [dub-st1-lf1]
+changed: [dub-st2-lf2]
+changed: [dub-st3-lf1]
+changed: [dub-st3-lf2]
+
+TASK [Configure interface properties (port-channels and members)] **************
+changed: [dub-ssp4]
+changed: [dub-ssp1]
+changed: [dub-st1-sp1]
+changed: [dub-ssp3]
+changed: [dub-ssp2]
+changed: [dub-st1-sp2]
+changed: [dub-st3-sp1]
+changed: [dub-st2-sp1]
+changed: [dub-st3-sp2]
+changed: [dub-st2-sp2]
+changed: [dub-st1-lf1]
+changed: [dub-st1-lf2]
+changed: [dub-st2-lf1]
+changed: [dub-st3-lf1]
+changed: [dub-st2-lf2]
+changed: [dub-st3-lf2]
+
+TASK [Configure routed interfaces (IP addresses)] ******************************
+ok: [dub-ssp4]
+ok: [dub-ssp1]
+ok: [dub-st1-sp1]
+ok: [dub-ssp3]
+ok: [dub-ssp2]
+ok: [dub-st2-sp1]
+ok: [dub-st2-sp2]
+ok: [dub-st1-lf1]
+ok: [dub-st1-lf2]
+fatal: [dub-st3-sp2]: FAILED! => {"msg": "Traceback (most recent call last):\n  File \"/usr/lib/python3/dist-packages/ansible/module_utils/connection.py\", line 210, in send\n    response = recv_data(sf)\n               ^^^^^^^^^^^^^\n  File \"/usr/lib/python3/dist-packages/ansible/module_utils/connection.py\", line 79, in recv_data\n    d = s.recv(header_len - len(data))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nConnectionResetError: [Errno 104] Connection reset by peer\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/usr/lib/python3/dist-packages/ansible/cli/scripts/ansible_connection_cli_stub.py\", line 315, in main\n    conn.set_options(direct=options)\n  File \"/usr/lib/python3/dist-packages/ansible/module_utils/connection.py\", line 194, in __rpc__\n    response = self._exec_jsonrpc(name, *args, **kwargs)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3/dist-packages/ansible/module_utils/connection.py\", line 155, in _exec_jsonrpc\n    out = self.send(data)\n          ^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3/dist-packages/ansible/module_utils/connection.py\", line 214, in send\n    raise ConnectionError(\nansible.module_utils.connection.ConnectionError: unable to connect to socket /home/osboxes/.ansible/pc/5daa519fc7. See the socket path issue category in Network Debug and Troubleshooting Guide\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/usr/bin/ansible-connection\", line 8, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/usr/lib/python3/dist-packages/ansible/cli/scripts/ansible_connection_cli_stub.py\", line 318, in main\n    raise ConnectionError('Unable to decode JSON from response set_options. See the debug log for more information.')\nansible.module_utils.connection.ConnectionError: Unable to decode JSON from response set_options. See the debug log for more information.\n"}
+ok: [dub-st1-sp2]
+ok: [dub-st3-sp1]
+ok: [dub-st2-lf1]
+ok: [dub-st2-lf2]
+changed: [dub-st3-lf1]
+changed: [dub-st3-lf2]
+
+TASK [Save configuration] ******************************************************
+changed: [dub-ssp1]
+changed: [dub-ssp4]
+changed: [dub-st1-sp1]
+changed: [dub-ssp3]
+changed: [dub-ssp2]
+changed: [dub-st2-sp1]
+changed: [dub-st1-sp2]
+changed: [dub-st1-lf1]
+changed: [dub-st2-sp2]
+changed: [dub-st3-sp1]
+changed: [dub-st2-lf1]
+changed: [dub-st3-lf1]
+changed: [dub-st1-lf2]
+changed: [dub-st2-lf2]
+changed: [dub-st3-lf2]
+
+TASK [Verify LAG configuration] ************************************************
+ok: [dub-ssp3]
+ok: [dub-ssp4]
+ok: [dub-ssp2]
+ok: [dub-ssp1]
+ok: [dub-st1-sp1]
+ok: [dub-st1-sp2]
+ok: [dub-st3-sp1]
+ok: [dub-st2-sp2]
+ok: [dub-st1-lf1]
+ok: [dub-st2-sp1]
+ok: [dub-st1-lf2]
+ok: [dub-st2-lf1]
+ok: [dub-st3-lf2]
+ok: [dub-st3-lf1]
+ok: [dub-st2-lf2]
+
+TASK [Display verification results] ********************************************
+ok: [dub-ssp1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n112   Po112(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n121   Po121(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n122   Po122(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n131   Po131(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n132   Po132(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "112   Po112(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "121   Po121(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "122   Po122(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "131   Po131(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "132   Po132(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-ssp2] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n211   Po211(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n212   Po212(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n221   Po221(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n222   Po222(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n231   Po231(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n232   Po232(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)   \n311   Po311(RD)   Eth      NONE      --\n312   Po312(RD)   Eth      NONE      --\n321   Po321(RD)   Eth      NONE      --\n322   Po322(RD)   Eth      NONE      --\n331   Po331(RD)   Eth      NONE      --\n332   Po332(RD)   Eth      NONE      --",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "211   Po211(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "212   Po212(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "221   Po221(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "222   Po222(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "231   Po231(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "232   Po232(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)   ",
+                "311   Po311(RD)   Eth      NONE      --",
+                "312   Po312(RD)   Eth      NONE      --",
+                "321   Po321(RD)   Eth      NONE      --",
+                "322   Po322(RD)   Eth      NONE      --",
+                "331   Po331(RD)   Eth      NONE      --",
+                "332   Po332(RD)   Eth      NONE      --"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-ssp3] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n211   Po211(RD)   Eth      NONE      --\n212   Po212(RD)   Eth      NONE      --\n221   Po221(RD)   Eth      NONE      --\n222   Po222(RD)   Eth      NONE      --\n231   Po231(RD)   Eth      NONE      --\n232   Po232(RD)   Eth      NONE      --\n311   Po311(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n312   Po312(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n321   Po321(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n322   Po322(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n331   Po331(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n332   Po332(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)   \n1024  Po1024(RD)  Eth      NONE      --",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "211   Po211(RD)   Eth      NONE      --",
+                "212   Po212(RD)   Eth      NONE      --",
+                "221   Po221(RD)   Eth      NONE      --",
+                "222   Po222(RD)   Eth      NONE      --",
+                "231   Po231(RD)   Eth      NONE      --",
+                "232   Po232(RD)   Eth      NONE      --",
+                "311   Po311(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "312   Po312(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "321   Po321(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "322   Po322(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "331   Po331(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "332   Po332(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)   ",
+                "1024  Po1024(RD)  Eth      NONE      --"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-ssp4] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n411   Po411(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n412   Po412(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n421   Po421(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n422   Po422(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n431   Po431(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n432   Po432(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "411   Po411(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "412   Po412(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "421   Po421(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "422   Po422(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "431   Po431(RU)   Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "432   Po432(RU)   Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st1-sp1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n1111  Po1111(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n1112  Po1112(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "1111  Po1111(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "1112  Po1112(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st1-sp2] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n1211  Po1211(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n1212  Po1212(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "1211  Po1211(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "1212  Po1212(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st2-sp2] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n2221  Po2221(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n2222  Po2222(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "2221  Po2221(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "2222  Po2222(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st3-sp1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n3131  Po3131(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n3132  Po3132(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "3131  Po3131(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "3132  Po3132(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st2-sp1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    \n311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    \n411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    \n2121  Po2121(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   \n2122  Po2122(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "111   Po111(RU)   Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "211   Po211(RU)   Eth      LACP      Eth1/3(P)    Eth1/4(P)    ",
+                "311   Po311(RU)   Eth      LACP      Eth1/5(P)    Eth1/6(P)    ",
+                "411   Po411(RU)   Eth      LACP      Eth1/7(P)    Eth1/8(P)    ",
+                "2121  Po2121(RU)  Eth      LACP      Eth1/9(P)    Eth1/10(P)   ",
+                "2122  Po2122(RU)  Eth      LACP      Eth1/11(P)   Eth1/12(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st1-lf1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n1111  Po1111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n1112  Po1112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "1111  Po1111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "1112  Po1112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st1-lf2] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n1111  Po1111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n1112  Po1112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "1111  Po1111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "1112  Po1112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st2-lf2] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n312   Po312(RD)   Eth      NONE      --\n2121  Po2121(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n2122  Po2122(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "312   Po312(RD)   Eth      NONE      --",
+                "2121  Po2121(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "2122  Po2122(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st2-lf1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n2111  Po2111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n2112  Po2112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "2111  Po2111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "2112  Po2112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st3-lf1] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n3131  Po3131(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n3231  Po3231(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "3131  Po3131(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "3231  Po3231(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+ok: [dub-st3-lf2] => {
+    "verification_result": {
+        "changed": false,
+        "failed": false,
+        "stdout": [
+            "Flags:  D - Down        P - Up in port-channel (members)\n        I - Individual  H - Hot-standby (LACP only)\n        s - Suspended   r - Module-removed\n        b - BFD Session Wait\n        S - Switched    R - Routed\n        U - Up (port-channel)\n        p - Up in delay-lacp mode (member)\n        M - Not in use. Min-links not met\n--------------------------------------------------------------------------------\nGroup Port-       Type     Protocol  Member Ports\n      Channel\n--------------------------------------------------------------------------------\n1111  Po1111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    \n1112  Po1112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)",
+            ""
+        ],
+        "stdout_lines": [
+            [
+                "Flags:  D - Down        P - Up in port-channel (members)",
+                "        I - Individual  H - Hot-standby (LACP only)",
+                "        s - Suspended   r - Module-removed",
+                "        b - BFD Session Wait",
+                "        S - Switched    R - Routed",
+                "        U - Up (port-channel)",
+                "        p - Up in delay-lacp mode (member)",
+                "        M - Not in use. Min-links not met",
+                "--------------------------------------------------------------------------------",
+                "Group Port-       Type     Protocol  Member Ports",
+                "      Channel",
+                "--------------------------------------------------------------------------------",
+                "1111  Po1111(RU)  Eth      LACP      Eth1/1(P)    Eth1/2(P)    ",
+                "1112  Po1112(RU)  Eth      LACP      Eth1/3(P)    Eth1/4(P)"
+            ],
+            [
+                ""
+            ]
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+dub-ssp1                   : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-ssp2                   : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-ssp3                   : ok=8    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-ssp4                   : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st1-lf1                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st1-lf2                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st1-sp1                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st1-sp2                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st2-lf1                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st2-lf2                : ok=8    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st2-sp1                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st2-sp2                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st3-lf1                : ok=8    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st3-lf2                : ok=8    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st3-sp1                : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dub-st3-sp2                : ok=4    changed=3    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
