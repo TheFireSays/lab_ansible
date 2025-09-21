@@ -61,6 +61,33 @@ l3_interfaces:
 
 # Interface Configuration for nxos_interfaces
 interfaces:
+  # Member interfaces must be enabled to prevent defaults from wiping channel-group
+  - name: Ethernet1/1
+    enabled: true
+  - name: Ethernet1/2
+    enabled: true
+  - name: Ethernet1/3
+    enabled: true
+  - name: Ethernet1/4
+    enabled: true
+  - name: Ethernet1/5
+    enabled: true
+  - name: Ethernet1/6
+    enabled: true
+  - name: Ethernet1/7
+    enabled: true
+  - name: Ethernet1/8
+    enabled: true
+  - name: Ethernet1/9
+    enabled: true
+  - name: Ethernet1/10
+    enabled: true
+  - name: Ethernet1/11
+    enabled: true
+  - name: Ethernet1/12
+    enabled: true
+
+  # Port-channels
   - name: port-channel211
     description: "Downlink to dub-st1-sp1"
     mtu: 9216
@@ -85,3 +112,4 @@ interfaces:
     description: "Downlink to dub-st3-sp2"
     mtu: 9216
     enabled: true
+

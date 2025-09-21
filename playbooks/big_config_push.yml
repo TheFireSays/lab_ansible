@@ -1,41 +1,78 @@
 ---
-- name: Full configuration
+- name: LAG Configuration with Cleanup and MTU Fix
   hosts: data_switches
   gather_facts: no
   vars:
     template: "{{ playbook_dir }}/../templates/data_switches.yml"
-  
+
   tasks:
     - name: Enable required features
       cisco.nxos.nxos_feature:
         feature: "{{ item }}"
         state: enabled
       loop: "{{ enabled_features }}"
+      tags: features
 
     - name: Enable special features
       cisco.nxos.nxos_config:
         lines: "{{ special_features }}"
+      tags: features
 
-    - name: Configure LAG interfaces
+    - name: Remove existing channel-group assignments from member interfaces
+      cisco.nxos.nxos_config:
+        lines:
+          - "no channel-group"
+        parents: "interface {{ item.1.member }}"
+        save_when: modified
+      with_subelements:
+        - "{{ lag_interfaces }}"
+        - members
+      ignore_errors: yes
+      tags: interfaces
+
+    - name: Set MTU on member interfaces to 9216
+      cisco.nxos.nxos_config:
+        lines:
+          - "mtu 9216"
+        parents: "interface {{ item.1.member }}"
+        save_when: modified
+      with_subelements:
+        - "{{ lag_interfaces }}"
+        - members
+      tags: interfaces
+
+    - name: Configure port-channels and member interfaces
       cisco.nxos.nxos_lag_interfaces:
-        config: "{{ lag_interfaces | map('combine', {'state': 'up'}) | list }}"
+        config: "{{ lag_interfaces }}"
         state: merged
-      register: lag_config_result
+      tags: interfaces
 
-    - name: Display LAG configuration result
-      debug:
-        var: lag_config_result
-
-    - name: Configure interface properties (description, MTU, admin state)
+    - name: Configure interface properties (port-channels and members)
       cisco.nxos.nxos_interfaces:
         config: "{{ interfaces }}"
         state: merged
+      tags: interfaces
 
     - name: Configure routed interfaces (IP addresses)
       cisco.nxos.nxos_l3_interfaces:
         config: "{{ l3_interfaces }}"
         state: merged
+      tags: interfaces
 
     - name: Save configuration
       cisco.nxos.nxos_config:
         save_when: always
+      tags: config
+
+    - name: Verify LAG configuration
+      cisco.nxos.nxos_command:
+        commands:
+          - "show port-channel summary"
+          - "show interface brief | include port-channel"
+      register: verification_result
+      tags: verify
+
+    - name: Display verification results
+      debug:
+        var: verification_result
+      tags: verify
