@@ -1,4 +1,4 @@
-enabled features:
+enabled_features:
 - feature lldp
 - feature ospf
 - feature bgp

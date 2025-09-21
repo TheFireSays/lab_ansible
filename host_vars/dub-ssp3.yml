@@ -1,5 +1,4 @@
 ---
-
 portchannels:
   - number: 311
     description: "Downlink to dub-st1-sp1"
@@ -30,7 +29,7 @@ portchannels:
     
   - number: 322
     description: "Downlink to dub-st2-sp2"
-    ip: "30.30.30.61
+    ip: "30.30.30.61"
     subnet_mask: "255.255.255.252"
     members:
       - "e1/7"
@@ -42,8 +41,8 @@ portchannels:
     ip: "30.30.30.65"
     subnet_mask: "255.255.255.252"
     members:
-      - "e1/1"
-      - "e1/2"
+      - "e1/9"
+      - "e1/10"
     lacp_mode: "active"
     
   - number: 332
@@ -51,5 +50,6 @@ portchannels:
     ip: "30.30.30.69"
     subnet_mask: "255.255.255.252"
     members:
-      - "e1/3"
-      - "e1/4"
+      - "e1/11"
+      - "e1/12"
+    lacp_mode: "active"

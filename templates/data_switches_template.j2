@@ -12,8 +12,7 @@ interface Port-channel{{ pc.number }}
  description {{ pc.description }}
  ip address {{ pc.ip }} {{ pc.subnet_mask }}
  mtu 9216
-
-no shutdown
+ no shutdown
 
 ##Port-channel member interfaces for Port-channel{{ pc.number }}
 {% for member in pc.members %}

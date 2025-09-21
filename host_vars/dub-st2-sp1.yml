@@ -37,7 +37,7 @@ portchannels:
       - "e1/8"
     lacp_mode: "active"
 
-    - number: 2121
+  - number: 2121
     description: "Downlink to dub-st2-lf1"
     ip: "30.30.30.113"
     subnet_mask: "255.255.255.252"
@@ -46,13 +46,12 @@ portchannels:
       - "e1/10"
     lacp_mode: "active"
     
-  - number: 21222
+  - number: 2122
     description: "Downlink to dub-st2-lf2"
     ip: "30.30.30.117"
     subnet_mask: "255.255.255.252"
     members:
-      - "e111"
+      - "e1/11"
       - "e1/12"
     lacp_mode: "active"
-
 

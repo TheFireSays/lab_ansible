@@ -1,5 +1,4 @@
 ---
-
 portchannels:
   - number: 211
     description: "Downlink to dub-st1-sp1"
@@ -30,7 +29,7 @@ portchannels:
     
   - number: 222
     description: "Downlink to dub-st2-sp2"
-    ip: "30.30.30.837"
+    ip: "30.30.30.37"
     subnet_mask: "255.255.255.252"
     members:
       - "e1/7"
@@ -53,3 +52,4 @@ portchannels:
     members:
       - "e1/11"
       - "e1/12"
+    lacp_mode: "active"

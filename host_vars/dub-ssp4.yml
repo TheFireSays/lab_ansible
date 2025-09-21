@@ -1,5 +1,4 @@
 ---
-
 portchannels:
   - number: 411
     description: "Downlink to dub-st1-sp1"
@@ -53,3 +52,5 @@ portchannels:
     members:
       - "e1/11"
       - "e1/12"
+    lacp_mode: "active"
+

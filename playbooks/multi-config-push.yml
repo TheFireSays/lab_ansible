@@ -2,7 +2,6 @@
 - name: Configure NX-OS devices with individual config files
   hosts: data_switches
   gather_facts: no
-
   
   vars:
     config_dir: "configs"
@@ -25,14 +24,24 @@
       debug:
         msg: "Using configuration file: {{ config_file }}"
       
-    - name: Apply configuration from device-specific file
+    - name: Apply configuration with better error handling
       cisco.nxos.nxos_config:
         src: "{{ config_file }}"
         match: line
         replace: line
-        backup: no
+        backup: yes
+        diff_against: running
+        diff_ignore_lines:
+          - "Building configuration"
+          - "Current configuration"
       register: config_result
+      ignore_errors: yes
       
+    - name: Show any configuration errors
+      debug:
+        var: config_result
+      when: config_result.failed
+        
     - name: Show configuration changes made
       debug:
         var: config_result.commands

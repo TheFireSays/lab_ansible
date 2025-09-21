@@ -1,21 +1,19 @@
 ---
-
 portchannels:
-  - number: 2111
-    description: "Uplink to dub-st12sp1"
-    ip: "30.30.30.110"
+  - number: 2121
+    description: "Uplink to dub-st2-sp1"
+    ip: "30.30.30.118"
     subnet_mask: "255.255.255.252"
     members:
       - "e1/1"
       - "e1/2"
     lacp_mode: "active"
     
-  - number: 2112
+  - number: 2122
     description: "Uplink to dub-st2-sp2"
-    ip: "30.30.30.118"
+    ip: "30.30.30.126"
     subnet_mask: "255.255.255.252"
     members:
       - "e1/3"
       - "e1/4"
     lacp_mode: "active"
-

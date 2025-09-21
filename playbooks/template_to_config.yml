@@ -2,10 +2,47 @@
 - name: Generate NX-OS config files via template
   hosts: data_switches
   tasks:
+    - name: Ensure configs directory exists
+      file:
+        path: "{{ playbook_dir }}/../configs"
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+      run_once: true
+      
+    - name: Create empty config file first
+      file:
+        path: "{{ playbook_dir }}/../configs/{{ inventory_hostname }}.cfg"
+        state: touch
+        mode: '0644'
+      register: file_created
+      
     - name: Generate config from template
       template:
         src: "{{ playbook_dir }}/../templates/data_switches_template.j2"
         dest: "{{ playbook_dir }}/../configs/{{ inventory_hostname }}.cfg"
+        mode: '0644'
+      register: template_result
+      failed_when: false
+      
+    - name: Debug template result
+      debug:
+        var: template_result
         
-    - name: Append timestamp comment to config file
-      shell: echo "#Config created via Jinja template on $(date -Iseconds)." >> "{{ playbook_dir }}/../configs/{{ inventory_hostname }}_cfg.txt"
+    - name: Set changed flag if template succeeded or file was created
+      set_fact:
+        config_changed: "{{ template_result.changed or file_created.changed }}"
+        
+    - name: Get current timestamp
+      command: date -Iseconds
+      register: timestamp_result
+      when: config_changed | bool
+      delegate_to: localhost
+        
+    - name: Append timestamp to config file (only if config changed)
+      lineinfile:
+        path: "{{ playbook_dir }}/../configs/{{ inventory_hostname }}.cfg"
+        regexp: "^#Config created via Jinja template on.*"
+        line: "#Config created via Jinja template on {{ timestamp_result.stdout }}."
+        insertafter: EOF
+      when: config_changed | bool and timestamp_result.stdout is defined
