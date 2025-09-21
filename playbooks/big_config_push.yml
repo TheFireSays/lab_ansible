@@ -1,0 +1,41 @@
+---
+- name: Full configuration
+  hosts: data_switches
+  gather_facts: no
+  vars:
+    template: "{{ playbook_dir }}/../templates/data_switches.yml"
+  
+  tasks:
+    - name: Enable required features
+      cisco.nxos.nxos_feature:
+        feature: "{{ item }}"
+        state: enabled
+      loop: "{{ enabled_features }}"
+
+    - name: Enable special features
+      cisco.nxos.nxos_config:
+        lines: "{{ special_features }}"
+
+    - name: Configure LAG interfaces
+      cisco.nxos.nxos_lag_interfaces:
+        config: "{{ lag_interfaces | map('combine', {'state': 'up'}) | list }}"
+        state: merged
+      register: lag_config_result
+
+    - name: Display LAG configuration result
+      debug:
+        var: lag_config_result
+
+    - name: Configure interface properties (description, MTU, admin state)
+      cisco.nxos.nxos_interfaces:
+        config: "{{ interfaces }}"
+        state: merged
+
+    - name: Configure routed interfaces (IP addresses)
+      cisco.nxos.nxos_l3_interfaces:
+        config: "{{ l3_interfaces }}"
+        state: merged
+
+    - name: Save configuration
+      cisco.nxos.nxos_config:
+        save_when: always

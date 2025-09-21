@@ -1,0 +1,219 @@
+
+PLAY [Full configuration] ******************************************************
+
+TASK [Enable required features] ************************************************
+ok: [dub-ssp2] => (item=lldp)
+ok: [dub-ssp1] => (item=lldp)
+ok: [dub-ssp4] => (item=lldp)
+ok: [dub-ssp3] => (item=lldp)
+ok: [dub-st1-sp1] => (item=lldp)
+ok: [dub-ssp4] => (item=ospf)
+ok: [dub-ssp1] => (item=ospf)
+ok: [dub-ssp3] => (item=ospf)
+ok: [dub-ssp2] => (item=ospf)
+ok: [dub-st1-sp1] => (item=ospf)
+ok: [dub-ssp4] => (item=bgp)
+ok: [dub-ssp2] => (item=bgp)
+ok: [dub-ssp1] => (item=bgp)
+ok: [dub-st1-sp1] => (item=bgp)
+ok: [dub-ssp3] => (item=bgp)
+ok: [dub-ssp4] => (item=lacp)
+ok: [dub-ssp2] => (item=lacp)
+ok: [dub-ssp3] => (item=lacp)
+ok: [dub-st1-sp1] => (item=lacp)
+ok: [dub-ssp1] => (item=lacp)
+ok: [dub-ssp4] => (item=pim)
+ok: [dub-ssp2] => (item=pim)
+ok: [dub-ssp3] => (item=pim)
+ok: [dub-ssp1] => (item=pim)
+ok: [dub-st1-sp1] => (item=pim)
+ok: [dub-ssp4] => (item=vn-segment-vlan-based)
+ok: [dub-st1-sp1] => (item=vn-segment-vlan-based)
+ok: [dub-ssp3] => (item=vn-segment-vlan-based)
+ok: [dub-ssp2] => (item=vn-segment-vlan-based)
+ok: [dub-ssp1] => (item=vn-segment-vlan-based)
+ok: [dub-ssp4] => (item=nv overlay)
+ok: [dub-ssp3] => (item=nv overlay)
+ok: [dub-st1-sp1] => (item=nv overlay)
+ok: [dub-ssp2] => (item=nv overlay)
+ok: [dub-ssp1] => (item=nv overlay)
+ok: [dub-ssp4] => (item=fabric forwarding)
+ok: [dub-ssp3] => (item=fabric forwarding)
+ok: [dub-ssp2] => (item=fabric forwarding)
+ok: [dub-st1-sp1] => (item=fabric forwarding)
+ok: [dub-ssp1] => (item=fabric forwarding)
+ok: [dub-ssp4] => (item=interface-vlan)
+ok: [dub-ssp3] => (item=interface-vlan)
+ok: [dub-ssp2] => (item=interface-vlan)
+ok: [dub-ssp1] => (item=interface-vlan)
+ok: [dub-st1-sp1] => (item=interface-vlan)
+ok: [dub-ssp4] => (item=bfd)
+ok: [dub-ssp3] => (item=bfd)
+ok: [dub-ssp2] => (item=bfd)
+ok: [dub-ssp1] => (item=bfd)
+ok: [dub-st1-sp1] => (item=bfd)
+ok: [dub-st1-sp2] => (item=lldp)
+ok: [dub-st2-sp1] => (item=lldp)
+ok: [dub-st3-sp2] => (item=lldp)
+ok: [dub-st2-sp2] => (item=lldp)
+ok: [dub-st3-sp1] => (item=lldp)
+ok: [dub-st1-sp2] => (item=ospf)
+ok: [dub-st2-sp1] => (item=ospf)
+ok: [dub-st3-sp2] => (item=ospf)
+ok: [dub-st3-sp1] => (item=ospf)
+ok: [dub-st2-sp2] => (item=ospf)
+ok: [dub-st1-sp2] => (item=bgp)
+ok: [dub-st2-sp1] => (item=bgp)
+ok: [dub-st3-sp2] => (item=bgp)
+ok: [dub-st3-sp1] => (item=bgp)
+ok: [dub-st2-sp2] => (item=bgp)
+ok: [dub-st1-sp2] => (item=lacp)
+ok: [dub-st2-sp1] => (item=lacp)
+ok: [dub-st3-sp2] => (item=lacp)
+ok: [dub-st3-sp1] => (item=lacp)
+ok: [dub-st2-sp2] => (item=lacp)
+ok: [dub-st1-sp2] => (item=pim)
+ok: [dub-st2-sp1] => (item=pim)
+ok: [dub-st3-sp2] => (item=pim)
+ok: [dub-st3-sp1] => (item=pim)
+ok: [dub-st2-sp2] => (item=pim)
+ok: [dub-st1-sp2] => (item=vn-segment-vlan-based)
+ok: [dub-st2-sp1] => (item=vn-segment-vlan-based)
+ok: [dub-st3-sp1] => (item=vn-segment-vlan-based)
+ok: [dub-st3-sp2] => (item=vn-segment-vlan-based)
+ok: [dub-st1-sp2] => (item=nv overlay)
+ok: [dub-st2-sp2] => (item=vn-segment-vlan-based)
+ok: [dub-st2-sp1] => (item=nv overlay)
+ok: [dub-st3-sp1] => (item=nv overlay)
+ok: [dub-st1-sp2] => (item=fabric forwarding)
+ok: [dub-st3-sp2] => (item=nv overlay)
+ok: [dub-st2-sp2] => (item=nv overlay)
+ok: [dub-st2-sp1] => (item=fabric forwarding)
+ok: [dub-st3-sp1] => (item=fabric forwarding)
+ok: [dub-st1-sp2] => (item=interface-vlan)
+ok: [dub-st2-sp2] => (item=fabric forwarding)
+ok: [dub-st3-sp2] => (item=fabric forwarding)
+ok: [dub-st2-sp1] => (item=interface-vlan)
+ok: [dub-st3-sp1] => (item=interface-vlan)
+ok: [dub-st1-sp2] => (item=bfd)
+ok: [dub-st2-sp2] => (item=interface-vlan)
+ok: [dub-st3-sp2] => (item=interface-vlan)
+ok: [dub-st2-sp1] => (item=bfd)
+ok: [dub-st3-sp1] => (item=bfd)
+ok: [dub-st3-sp2] => (item=bfd)
+ok: [dub-st2-sp2] => (item=bfd)
+ok: [dub-st1-lf1] => (item=lldp)
+ok: [dub-st1-lf2] => (item=lldp)
+ok: [dub-st1-lf1] => (item=ospf)
+ok: [dub-st2-lf1] => (item=lldp)
+ok: [dub-st3-lf1] => (item=lldp)
+ok: [dub-st1-lf2] => (item=ospf)
+ok: [dub-st2-lf2] => (item=lldp)
+ok: [dub-st1-lf1] => (item=bgp)
+ok: [dub-st2-lf1] => (item=ospf)
+ok: [dub-st3-lf1] => (item=ospf)
+ok: [dub-st2-lf2] => (item=ospf)
+ok: [dub-st1-lf2] => (item=bgp)
+ok: [dub-st1-lf1] => (item=lacp)
+ok: [dub-st2-lf1] => (item=bgp)
+ok: [dub-st3-lf1] => (item=bgp)
+ok: [dub-st1-lf2] => (item=lacp)
+ok: [dub-st2-lf2] => (item=bgp)
+ok: [dub-st1-lf1] => (item=pim)
+ok: [dub-st2-lf1] => (item=lacp)
+ok: [dub-st3-lf1] => (item=lacp)
+ok: [dub-st1-lf2] => (item=pim)
+ok: [dub-st2-lf2] => (item=lacp)
+ok: [dub-st1-lf1] => (item=vn-segment-vlan-based)
+ok: [dub-st2-lf1] => (item=pim)
+ok: [dub-st3-lf1] => (item=pim)
+ok: [dub-st1-lf2] => (item=vn-segment-vlan-based)
+ok: [dub-st2-lf2] => (item=pim)
+ok: [dub-st1-lf1] => (item=nv overlay)
+ok: [dub-st3-lf1] => (item=vn-segment-vlan-based)
+ok: [dub-st2-lf1] => (item=vn-segment-vlan-based)
+ok: [dub-st1-lf2] => (item=nv overlay)
+ok: [dub-st1-lf1] => (item=fabric forwarding)
+ok: [dub-st2-lf2] => (item=vn-segment-vlan-based)
+ok: [dub-st3-lf1] => (item=nv overlay)
+ok: [dub-st2-lf1] => (item=nv overlay)
+ok: [dub-st1-lf2] => (item=fabric forwarding)
+ok: [dub-st1-lf1] => (item=interface-vlan)
+ok: [dub-st2-lf2] => (item=nv overlay)
+ok: [dub-st3-lf1] => (item=fabric forwarding)
+ok: [dub-st2-lf1] => (item=fabric forwarding)
+ok: [dub-st1-lf2] => (item=interface-vlan)
+ok: [dub-st1-lf1] => (item=bfd)
+ok: [dub-st2-lf2] => (item=fabric forwarding)
+ok: [dub-st2-lf1] => (item=interface-vlan)
+ok: [dub-st3-lf1] => (item=interface-vlan)
+ok: [dub-st1-lf2] => (item=bfd)
+ok: [dub-st2-lf2] => (item=interface-vlan)
+ok: [dub-st2-lf1] => (item=bfd)
+ok: [dub-st3-lf1] => (item=bfd)
+ok: [dub-st2-lf2] => (item=bfd)
+ok: [dub-st3-lf2] => (item=lldp)
+ok: [dub-st3-lf2] => (item=ospf)
+ok: [dub-st3-lf2] => (item=bgp)
+ok: [dub-st3-lf2] => (item=lacp)
+ok: [dub-st3-lf2] => (item=pim)
+ok: [dub-st3-lf2] => (item=vn-segment-vlan-based)
+ok: [dub-st3-lf2] => (item=nv overlay)
+ok: [dub-st3-lf2] => (item=fabric forwarding)
+ok: [dub-st3-lf2] => (item=interface-vlan)
+ok: [dub-st3-lf2] => (item=bfd)
+
+TASK [Enable special features] *************************************************
+ok: [dub-ssp2]
+ok: [dub-ssp4]
+ok: [dub-st1-sp1]
+ok: [dub-ssp3]
+ok: [dub-ssp1]
+ok: [dub-st1-sp2]
+ok: [dub-st2-sp1]
+ok: [dub-st2-sp2]
+ok: [dub-st3-sp1]
+ok: [dub-st3-sp2]
+ok: [dub-st1-lf1]
+ok: [dub-st1-lf2]
+ok: [dub-st3-lf2]
+ok: [dub-st2-lf1]
+ok: [dub-st2-lf2]
+ok: [dub-st3-lf1]
+
+TASK [Configure LAG interfaces] ************************************************
+fatal: [dub-ssp1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-ssp2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-ssp3]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st1-sp1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-ssp4]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st2-sp1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st1-sp2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st2-sp2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st3-sp1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st3-sp2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st1-lf1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st1-lf2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st2-lf1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st3-lf1]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st2-lf2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+fatal: [dub-st3-lf2]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (cisco.nxos.nxos_lag_interfaces) module: config.state. Supported parameters include: members, name."}
+
+PLAY RECAP *********************************************************************
+dub-ssp1                   : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-ssp2                   : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-ssp3                   : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-ssp4                   : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st1-lf1                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st1-lf2                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st1-sp1                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st1-sp2                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st2-lf1                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st2-lf2                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st2-sp1                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st2-sp2                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st3-lf1                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st3-lf2                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st3-sp1                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+dub-st3-sp2                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+

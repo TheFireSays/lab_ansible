@@ -1,19 +1,32 @@
 ---
-portchannels:
-  - number: 2121
+lag_interfaces:
+  - name: port-channel2121
+    members:
+      - member: Ethernet1/1
+        mode: active
+      - member: Ethernet1/2
+        mode: active
+  - name: port-channel2122
+    members:
+      - member: Ethernet1/3
+        mode: active
+      - member: Ethernet1/4
+        mode: active
+
+l3_interfaces:
+  - name: port-channel2121
+    ipv4:
+      - address: 30.30.30.118/30
+  - name: port-channel2122
+    ipv4:
+      - address: 30.30.30.126/30
+
+interfaces:
+  - name: port-channel2121
     description: "Uplink to dub-st2-sp1"
-    ip: "30.30.30.118"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/1"
-      - "e1/2"
-    lacp_mode: "active"
-    
-  - number: 2122
+    mtu: 9216
+    enabled: true
+  - name: port-channel2122
     description: "Uplink to dub-st2-sp2"
-    ip: "30.30.30.126"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/3"
-      - "e1/4"
-    lacp_mode: "active"
+    mtu: 9216
+    enabled: true

@@ -1,55 +1,87 @@
 ---
-portchannels:
-  - number: 211
+# LAG Interface Configuration for nxos_lag_interfaces
+lag_interfaces:
+  - name: port-channel211
+    members:
+      - member: Ethernet1/1
+        mode: active
+      - member: Ethernet1/2
+        mode: active
+  - name: port-channel212
+    members:
+      - member: Ethernet1/3
+        mode: active
+      - member: Ethernet1/4
+        mode: active
+  - name: port-channel221
+    members:
+      - member: Ethernet1/5
+        mode: active
+      - member: Ethernet1/6
+        mode: active
+  - name: port-channel222
+    members:
+      - member: Ethernet1/7
+        mode: active
+      - member: Ethernet1/8
+        mode: active
+  - name: port-channel231
+    members:
+      - member: Ethernet1/9
+        mode: active
+      - member: Ethernet1/10
+        mode: active
+  - name: port-channel232
+    members:
+      - member: Ethernet1/11
+        mode: active
+      - member: Ethernet1/12
+        mode: active
+
+# L3 Interface Configuration for nxos_l3_interfaces
+l3_interfaces:
+  - name: port-channel211
+    ipv4:
+      - address: 30.30.30.25/30
+  - name: port-channel212
+    ipv4:
+      - address: 30.30.30.29/30
+  - name: port-channel221
+    ipv4:
+      - address: 30.30.30.33/30
+  - name: port-channel222
+    ipv4:
+      - address: 30.30.30.37/30
+  - name: port-channel231
+    ipv4:
+      - address: 30.30.30.41/30
+  - name: port-channel232
+    ipv4:
+      - address: 30.30.30.45/30
+
+# Interface Configuration for nxos_interfaces
+interfaces:
+  - name: port-channel211
     description: "Downlink to dub-st1-sp1"
-    ip: "30.30.30.25"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/1"
-      - "e1/2"
-    lacp_mode: "active"
-    
-  - number: 212
+    mtu: 9216
+    enabled: true
+  - name: port-channel212
     description: "Downlink to dub-st1-sp2"
-    ip: "30.30.30.29"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/3"
-      - "e1/4"
-    lacp_mode: "active"
-
-  - number: 221
+    mtu: 9216
+    enabled: true
+  - name: port-channel221
     description: "Downlink to dub-st2-sp1"
-    ip: "30.30.30.33"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/5"
-      - "e1/6"
-    lacp_mode: "active"
-    
-  - number: 222
+    mtu: 9216
+    enabled: true
+  - name: port-channel222
     description: "Downlink to dub-st2-sp2"
-    ip: "30.30.30.37"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/7"
-      - "e1/8"
-    lacp_mode: "active"
-
-  - number: 231
+    mtu: 9216
+    enabled: true
+  - name: port-channel231
     description: "Downlink to dub-st3-sp1"
-    ip: "30.30.30.41"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/9"
-      - "e1/10"
-    lacp_mode: "active"
-    
-  - number: 232
+    mtu: 9216
+    enabled: true
+  - name: port-channel232
     description: "Downlink to dub-st3-sp2"
-    ip: "30.30.30.45"
-    subnet_mask: "255.255.255.252"
-    members:
-      - "e1/11"
-      - "e1/12"
-    lacp_mode: "active"
+    mtu: 9216
+    enabled: true

@@ -6,32 +6,34 @@
     template: "{{ playbook_dir }}/../templates/data_switches.yml"
   
   tasks:
-    - name: Check current running configuration
-      cisco.nxos.nxos_command:
-        commands:
-          - show running-config | include feature
-      register: running_config
+#    - name: Enable required features
+#      cisco.nxos.nxos_feature:
+#        feature: "{{ item }}"
+#        state: enabled
+#      loop: "{{ enabled_features }}"
 
-    - name: Display current feature configuration
-      debug:
-        msg: "Current features: {{ running_config.stdout[0] }}"
+#    - name: Enable special features
+#      cisco.nxos.nxos_config:
+#        lines: "{{ special_features }}"
 
-    - name: Enable required features
-      cisco.nxos.nxos_feature:
-        feature: "{{ item }}"
-        state: enabled
-      loop: "{{ enabled_features }}"
-
-    - name: Enable special features
+    - name: Create port-channel interfaces
       cisco.nxos.nxos_config:
-        lines: "{{ special_features }}"
+        lines:
+          - "interface {{ item.name }}"
+      loop: "{{ lag_interfaces }}"
 
-    - name: Port-channel config
-      cisco.nxos.nxos_lag_interfaces:
-        config: "{{ portchannels }}"
+    - name: Configure interface properties (description, MTU, admin state)
+      cisco.nxos.nxos_interfaces:
+        config: "{{ interfaces }}"
         state: merged
 
-    # - name: Configure routed interfaces
-    #   cisco.nxos.nxos_l3_interfaces:
-    #     config: "{{ l3_interfaces }}"
-    #     state: merged
+    - name: Configure LAG membership (assign member interfaces)
+      cisco.nxos.nxos_lag_interfaces:
+        config: "{{ lag_interfaces }}"
+        state: merged
+      register: lag_result
+
+    - name: Configure routed interfaces (IP addresses)
+      cisco.nxos.nxos_l3_interfaces:
+        config: "{{ l3_interfaces }}"
+        state: merged
