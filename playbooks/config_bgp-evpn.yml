@@ -1,0 +1,179 @@
+---
+- name: Configure BGP EVPN for Multi-Building Campus Fabric
+  hosts: all
+  gather_facts: no
+  vars:
+    total_devices: "{{ groups['all'] | length }}"
+    
+  tasks:
+    - name: "Starting BGP EVPN configuration"
+      debug:
+        msg: |
+          ╔═══════════════════════════════════════════════════════╗
+          ║           BGP EVPN CAMPUS FABRIC CONFIGURATION        ║
+          ║    Superspines: Route Reflectors (4 devices)         ║
+          ║    Buildings: st1, st2, st3 with selective VLANs     ║
+          ╚═══════════════════════════════════════════════════════╝
+      run_once: true
+
+    # ==================== SUPERSPINE CONFIGURATION ====================
+    - name: Configure BGP EVPN Route Reflectors (Superspines)
+      cisco.nxos.nxos_config:
+        lines:
+          - "router bgp {{ bgp_asn }}"
+          - "router-id {{ router_id }}"
+          - "address-family l2vpn evpn"
+          - "retain route-target all"
+          # Route reflector for all spines
+          - "neighbor {{ hostvars[item]['router_id'] }} remote-as {{ bgp_asn }}"
+          - "neighbor {{ hostvars[item]['router_id'] }} update-source loopback0"
+          - "neighbor {{ hostvars[item]['router_id'] }} route-reflector-client"
+          - "address-family l2vpn evpn"
+          - "neighbor {{ hostvars[item]['router_id'] }} activate"
+          - "neighbor {{ hostvars[item]['router_id'] }} send-community extended"
+        save_when: changed
+      when: device_type == "superspine"
+      loop: "{{ groups['spines'] }}"
+      register: superspine_bgp_config
+
+    # ==================== SPINE CONFIGURATION ====================
+    - name: Configure BGP EVPN on Spines (RR Clients + Local RR)
+      cisco.nxos.nxos_config:
+        lines:
+          - "router bgp {{ bgp_asn }}"
+          - "router-id {{ router_id }}"
+          - "address-family l2vpn evpn"
+          # Peer with all superspines (route reflectors)
+          - "neighbor {{ hostvars[item]['router_id'] }} remote-as {{ bgp_asn }}"
+          - "neighbor {{ hostvars[item]['router_id'] }} update-source loopback0"
+          - "address-family l2vpn evpn"
+          - "neighbor {{ hostvars[item]['router_id'] }} activate"
+          - "neighbor {{ hostvars[item]['router_id'] }} send-community extended"
+        save_when: changed
+      when: device_type == "spine"
+      loop: "{{ groups['superspines'] }}"
+
+    - name: Configure Spine as Route Reflector for Local Leafs
+      cisco.nxos.nxos_config:
+        lines:
+          - "router bgp {{ bgp_asn }}"
+          # Spine acts as RR for leafs in same building
+          - "neighbor {{ hostvars[item]['router_id'] }} remote-as {{ bgp_asn }}"
+          - "neighbor {{ hostvars[item]['router_id'] }} update-source loopback0"
+          - "neighbor {{ hostvars[item]['router_id'] }} route-reflector-client"
+          - "address-family l2vpn evpn"
+          - "neighbor {{ hostvars[item]['router_id'] }} activate"
+          - "neighbor {{ hostvars[item]['router_id'] }} send-community extended"
+        save_when: changed
+      when: device_type == "spine"
+      loop: "{{ groups['leafs'] }}"
+      vars:
+        # Only configure leafs in same building
+        same_building_leafs: "{{ groups['leafs'] | select('match', '.*-' + building + '-.*') | list }}"
+
+    # ==================== LEAF CONFIGURATION ====================
+    - name: Configure BGP EVPN on Leafs (RR Clients)
+      cisco.nxos.nxos_config:
+        lines:
+          - "router bgp {{ bgp_asn }}"
+          - "router-id {{ router_id }}"
+          - "address-family l2vpn evpn"
+          # Peer with local spines only
+          - "neighbor {{ hostvars[item]['router_id'] }} remote-as {{ bgp_asn }}"
+          - "neighbor {{ hostvars[item]['router_id'] }} update-source loopback0"
+          - "address-family l2vpn evpn"
+          - "neighbor {{ hostvars[item]['router_id'] }} activate"
+          - "neighbor {{ hostvars[item]['router_id'] }} send-community extended"
+        save_when: changed
+      when: device_type == "leaf"
+      loop: "{{ groups['spines'] }}"
+      vars:
+        # Only peer with spines in same building
+        same_building_spines: "{{ groups['spines'] | select('match', '.*-' + building + '-.*') | list }}"
+
+    # ==================== VXLAN/VTEP CONFIGURATION ====================
+    - name: Configure VXLAN Global Settings (Spines and Leafs)
+      cisco.nxos.nxos_config:
+        lines:
+          - "feature nv overlay"
+          - "feature vn-segment-vlan-based"
+          - "nv overlay evpn"
+        save_when: changed
+      when: vtep_ip is defined
+
+    - name: Configure NVE Interface (VTEP)
+      cisco.nxos.nxos_config:
+        lines:
+          - "interface nve1"
+          - "no shutdown"
+          - "source-interface loopback1"
+          - "host-reachability protocol bgp"
+        save_when: changed
+      when: vtep_ip is defined
+
+    # ==================== VLAN/VNI MAPPING ====================
+    - name: Configure VLAN to VNI Mappings (Building-Specific)
+      cisco.nxos.nxos_config:
+        lines:
+          - "vlan {{ item }}"
+          - "vn-segment {{ global_vni_mappings[item] }}"
+        save_when: changed
+      loop: "{{ vlans | default([]) }}"
+      when: 
+        - device_type in ["spine", "leaf"]
+        - vlans is defined
+
+    - name: Add VNI to NVE Interface
+      cisco.nxos.nxos_config:
+        lines:
+          - "interface nve1"
+          - "member vni {{ global_vni_mappings[item] }}"
+          - "ingress-replication protocol bgp"
+        save_when: changed
+      loop: "{{ vlans | default([]) }}"
+      when: 
+        - device_type in ["spine", "leaf"]
+        - vlans is defined
+
+    # ==================== EVPN INSTANCE CONFIGURATION ====================
+    - name: Configure EVPN Instance for Each VLAN
+      cisco.nxos.nxos_config:
+        lines:
+          - "evpn"
+          - "vni {{ global_vni_mappings[item] }} l2"
+          - "rd auto"
+          - "route-target import auto"
+          - "route-target export auto"
+        save_when: changed
+      loop: "{{ vlans | default([]) }}"
+      when: 
+        - device_type in ["spine", "leaf"]
+        - vlans is defined
+
+    - name: "✓ BGP EVPN Configuration Summary"
+      debug:
+        msg: |
+          ✓ {{ inventory_hostname }} BGP EVPN configuration completed
+          ✓ Role: {{ bgp_role }}
+          {% if device_type == "superspine" %}✓ Route Reflector for all {{ groups['spines'] | length }} spines{% endif %}
+          {% if device_type == "spine" %}✓ RR Client to superspines + RR for local leafs{% endif %}
+          {% if device_type == "leaf" %}✓ RR Client to local spines{% endif %}
+          {% if building is defined %}✓ Building {{ building }}: VLANs {{ vlans | join(', ') }} → VNIs {{ vlans | map('extract', global_vni_mappings) | join(', ') }}{% endif %}
+
+    - name: Display EVPN configuration summary
+      debug:
+        msg: |
+          ╔═══════════════════════════════════════════════════════╗
+          ║              BGP EVPN CONFIGURATION COMPLETE         ║
+          ║   Multi-Building Campus Fabric with Selective VLANs  ║
+          ║   VLAN 100: st1↔st3  |  VLAN 200: st1↔st2           ║
+          ║   VLAN 300: st1↔st2↔st3  |  VLAN 400: st2↔st3       ║
+          ╚═══════════════════════════════════════════════════════╝
+      run_once: true
+      when: ansible_play_hosts.index(inventory_hostname) == (total_devices - 1)
+
+# Usage Examples:
+# ansible-playbook -i inventory.ini bgp_evpn_config.yml -v
+# ansible-playbook -i inventory.ini bgp_evpn_config.yml --limit superspines  # RRs only
+# ansible-playbook -i inventory.ini bgp_evpn_config.yml --limit spines       # Spine tier
+# ansible-playbook -i inventory.ini bgp_evpn_config.yml --limit leafs        # Leaf tier

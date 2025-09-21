@@ -1,0 +1,104 @@
+---
+- name: Configure Loopback Interfaces for OSPF/BGP
+  hosts: all
+  gather_facts: no
+  vars:
+    total_devices: "{{ groups['all'] | length }}"
+    
+  tasks:
+    - name: "Starting loopback configuration on {{ total_devices }} devices"
+      debug:
+        msg: |
+          ╔═══════════════════════════════════════════════════════╗
+          ║            LOOPBACK CONFIGURATION PLAYBOOK           ║
+          ║               Total Devices: {{ total_devices }}                     ║
+          ╚═══════════════════════════════════════════════════════╝
+      run_once: true
+
+    - name: "Configuring {{ inventory_hostname }} ({{ ansible_play_hosts.index(inventory_hostname) + 1 }}/{{ total_devices }})"
+      debug:
+        msg: |
+          → Device: {{ inventory_hostname }} ({{ device_type }})
+          → Router-ID: {{ router_id }}
+          {% if vtep_ip is defined %}→ VTEP IP: {{ vtep_ip }}{% endif %}
+          {% if building is defined %}→ Building: {{ building }} (VLANs: {{ vlans | join(', ') }}){% endif %}
+          → Progress: [{{ '█' * ((ansible_play_hosts.index(inventory_hostname) + 1) * 20 // total_devices) }}{{ '░' * (20 - ((ansible_play_hosts.index(inventory_hostname) + 1) * 20 // total_devices)) }}] {{ ((ansible_play_hosts.index(inventory_hostname) + 1) * 100 // total_devices) }}%
+
+    - name: Configure loopback interfaces
+      cisco.nxos.nxos_interfaces:
+        config:
+          - name: "{{ item.key }}"
+            enabled: true
+            description: "{{ item.value.description }}"
+        state: merged
+      loop: "{{ loopback_interfaces | dict2items }}"
+      register: loopback_interface_result
+
+    - name: Configure loopback IP addresses
+      cisco.nxos.nxos_l3_interfaces:
+        config:
+          - name: "{{ item.key }}"
+            ipv4:
+              - address: "{{ item.value.ip_address }}"
+        state: merged
+      loop: "{{ loopback_interfaces | dict2items }}"
+      register: loopback_ip_result
+
+    - name: Configure OSPF router-id and advertise loopbacks
+      cisco.nxos.nxos_config:
+        lines:
+          - "router ospf {{ ospf_process_id }}"
+          - "router-id {{ router_id }}"
+        save_when: changed
+      register: ospf_config_result
+
+    - name: Add loopback interfaces to OSPF
+      cisco.nxos.nxos_config:
+        lines:
+          - "interface {{ item.key }}"
+          - "ip router ospf {{ ospf_process_id }} area {{ ospf_area }}"
+        save_when: changed
+      loop: "{{ loopback_interfaces | dict2items }}"
+      register: ospf_interface_result
+
+    - name: Configure BGP router-id
+      cisco.nxos.nxos_config:
+        lines:
+          - "router bgp {{ bgp_asn }}"
+          - "router-id {{ router_id }}"
+        save_when: changed
+      register: bgp_config_result
+
+    - name: "✓ Completed {{ inventory_hostname }}"
+      debug:
+        msg: |
+          ✓ {{ inventory_hostname }} loopback configuration completed
+          ✓ Loopback0 (Router-ID): {{ router_id }}/32
+          {% if vtep_ip is defined %}✓ Loopback1 (VTEP): {{ vtep_ip }}/32{% endif %}
+          ✓ OSPF Process: {{ ospf_process_id }}, Area: {{ ospf_area }}
+          ✓ BGP ASN: {{ bgp_asn }} ({{ bgp_role }})
+          {% if building is defined %}✓ Building: {{ building }} - VLANs: {{ vlans | join(', ') }}{% endif %}
+      when: 
+        - loopback_interface_result is succeeded
+        - loopback_ip_result is succeeded
+        - ospf_config_result is succeeded
+
+    - name: Display configuration summary
+      debug:
+        msg: |
+          ╔═══════════════════════════════════════════════════════╗
+          ║                CONFIGURATION COMPLETE                ║
+          ║   All {{ total_devices }} devices configured successfully          ║
+          ╚═══════════════════════════════════════════════════════╝
+      run_once: true
+      when: ansible_play_hosts.index(inventory_hostname) == (total_devices - 1)
+
+# Usage:
+# ansible-playbook -i inventory.ini loopback_config.yml -v
+# 
+# For dry-run: 
+# ansible-playbook -i inventory.ini loopbook_config.yml --check
+#
+# For specific device types:
+# ansible-playbook -i inventory.ini loopback_config.yml --limit superspines
+# ansible-playbook -i inventory.ini loopback_config.yml --limit leafs
