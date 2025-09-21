@@ -1,0 +1,18 @@
+$Ansible notes
+
+### Tags and running playbooks while limiting tasks
+
+# Test just feature configuration
+ansible-playbook playbook.yml --tags features --check
+
+# Only configure port-channels on one device
+ansible-playbook playbook.yml --tags portchannels --limit dub-ssp1
+
+# Skip port-channels, do everything else
+ansible-playbook playbook.yml --skip-tags portchannels
+
+# Run interactively to confirm each step
+ansible-playbook playbook.yml --step
+
+# See what tasks would run
+ansible-playbook playbook.yml --list-tasks --tags features
