@@ -6,6 +6,16 @@
     template: "{{ playbook_dir }}/../templates/data_switches.yml"
   
   tasks:
+    - name: Check current running configuration
+      cisco.nxos.nxos_command:
+        commands:
+          - show running-config | include feature
+      register: running_config
+
+    - name: Display current feature configuration
+      debug:
+        msg: "Current features: {{ running_config.stdout[0] }}"
+
     - name: Enable required features
       cisco.nxos.nxos_feature:
         feature: "{{ item }}"
