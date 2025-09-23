@@ -18,18 +18,6 @@
         lines: "{{ special_features }}"
       tags: features
 
-    - name: Remove existing channel-group assignments from member interfaces
-      cisco.nxos.nxos_config:
-        lines:
-          - "no channel-group"
-        parents: "interface {{ item.1.member }}"
-        save_when: modified
-      with_subelements:
-        - "{{ lag_interfaces }}"
-        - members
-      ignore_errors: yes
-      tags: interfaces
-
     - name: Set MTU on member interfaces to 9216
       cisco.nxos.nxos_config:
         lines:
@@ -64,15 +52,3 @@
         save_when: always
       tags: config
 
-    - name: Verify LAG configuration
-      cisco.nxos.nxos_command:
-        commands:
-          - "show port-channel summary"
-          - "show interface brief | include port-channel"
-      register: verification_result
-      tags: verify
-
-    - name: Display verification results
-      debug:
-        var: verification_result
-      tags: verify
