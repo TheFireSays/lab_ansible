@@ -1,0 +1,35 @@
+---
+- name: Save nexus configuration to locale directory
+  hosts: data_switches
+  gather_facts: yes
+  vars:
+    backup_dir: "{{ playbook_dir }}/../configs"
+
+  tasks:
+    - name: Backup config to file
+      cisco.nxos.nxos_config:
+        backup: yes
+        backup_options:
+          filename: "{{ inventory_hostname }}"
+          dir_path: "{{ backup_dir }}"
+      register: backup_result
+
+    - name: Read config from file
+      slurp:
+        src: "{{ backup_result.backup_path }}"
+      register: config_content
+      delegate_to: localhost
+
+    - name: Create timestamp header in config file
+      copy:
+        content:  |
+          ! Configuration backup created on {{ ansible_date_time.date }} at {{ ansible_date_time.time }} ({{ ansible_date_time.tz }})
+          ! Backup source: {{ inventory_hostname }} ({{ ansible_host }})
+          ! Ansible playbook execution time: {{ ansible_date_time.iso8601 }}
+          !
+          {{ config_content.content | b64decode }}
+        dest: "{{ backup_dir }}/{{ inventory_hostname }}.cfg"
+      delegate_to: localhost
+    
+
+
