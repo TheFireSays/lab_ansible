@@ -1,3 +1,4 @@
+---
 enabled_features:
 - lldp
 - ospf
@@ -12,3 +13,19 @@ enabled_features:
 
 special_features:
 - nv overlay evpn
+
+loopbacks:
+  - name: loopback0
+    description: "Router ID"
+    enabled: true
+  - name: loopback1
+    description: "BGP-EVPN int"
+    enabled: true
+
+loopback_ips:
+  - name: loopback0
+    ipv4:
+      address: "10.10.10.{{ ansible host.split(.)[3] }}"
+  - name: loopback1
+    ipv4:
+      address: "20.20.20.{{ ansible_host.split(.)[3] }}"

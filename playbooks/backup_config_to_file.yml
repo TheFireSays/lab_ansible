@@ -1,7 +1,7 @@
 ---
-- name: Save nexus configuration to locale directory
+- name: Save nexus configuration to local directory
   hosts: data_switches
-  gather_facts: yes
+  gather_facts: false
   vars:
     backup_dir: "{{ playbook_dir }}/../configs"
 
