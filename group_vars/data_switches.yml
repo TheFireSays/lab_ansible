@@ -25,7 +25,7 @@ loopbacks:
 loopback_ips:
   - name: loopback0
     ipv4:
-      address: "10.10.10.{{ ansible host.split(.)[3] }}"
+      address: "10.10.10.{{ ansible_host.split('.')[3] }}/32"
   - name: loopback1
     ipv4:
-      address: "20.20.20.{{ ansible_host.split(.)[3] }}"
+      address: "20.20.20.{{ ansible_host.split('.')[3] }}/32"

@@ -1,0 +1,23 @@
+---
+- name: Configure loopbacks with IP addresses
+  hosts: data_switches
+  gather_facts: false
+
+  tasks:
+    - name: Configure loopback interfaces with descriptions
+      cisco.nxos.nxos_interfaces: 
+        config:
+          - name: "{{ item.name }}"
+            description: "{{ item.description }}"
+            enabled: "{{ item.enabled }}"
+        state: merged
+      loop: "{{ loopbacks }}"
+    
+    - name: Assign IP addresses to loopback interfaces
+      cisco.nxos.nxos_l3_interfaces:
+        config:
+          - name: "{{ item.name }}"
+            ipv4:
+              - address: "{{ item.ipv4.address }}"
+        state: merged
+      loop: "{{ loopback_ips }}"
