@@ -1,0 +1,82 @@
+# playbooks/pb_build_netbox_db.yml
+---
+- name: Create NetBox Sites for Multi-Site EVPN/VXLAN Lab
+  hosts: localhost
+  gather_facts: false
+  vars:
+    netbox_url: "https://vcfx1495.cloud.netboxapp.com"
+    netbox_token: "bf14f68e820a2bb894299ed1314a098a416b12af"
+    
+    sites:
+      - name: dub-st1
+        description: "Dublin DC Site 1"
+        location: "Classified"
+        slug: "dub-st1"
+      - name: dub-st2
+        description: "Dublin DC Site 2"
+        location: "Classified"
+        slug: "dub-st2"
+      - name: dub-st3
+        description: "Dublin DC Site 3"
+        location: "Classified"
+        slug: "dub-st3"
+
+  tasks:
+    - name: Test NetBox API connectivity
+      uri:
+        url: "{{ netbox_url }}/api/"
+        method: GET
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Accept: "application/json"
+        validate_certs: false
+        status_code: 200
+      register: api_test
+      
+    - name: Display API response
+      debug:
+        msg: "NetBox API is accessible. Version: {{ api_test.json.status | default('4.3') }}"
+
+    - name: Check if site already exists
+      uri:
+        url: "{{ netbox_url }}/api/dcim/sites/?slug={{ item.slug }}"
+        method: GET
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Accept: "application/json"
+        validate_certs: false
+        status_code: 200
+      register: site_check
+      loop: "{{ sites }}"
+      
+    - name: Create sites that don't exist
+      uri:
+        url: "{{ netbox_url }}/api/dcim/sites/"
+        method: POST
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Content-Type: "application/json"
+          Accept: "application/json"
+        validate_certs: false
+        body_format: json
+        body:
+          name: "{{ item.item.name }}"
+          slug: "{{ item.item.slug }}"
+          description: "{{ item.item.description }}"
+          comments: "Multi-site EVPN/VXLAN lab environment"
+        status_code: [201, 400]  # 201 = created, 400 = might already exist
+      register: site_creation
+      loop: "{{ site_check.results }}"
+      when: item.json.count == 0  # Only create if site doesn't exist
+      
+    - name: Display creation results
+      debug:
+        msg: "Site {{ item.item.item.name }}: {{ 'Created successfully' if item.status == 201 else 'Already exists or error occurred' }}"
+      loop: "{{ site_creation.results }}"
+      when: site_creation.results is defined and item is not skipped
+      
+    - name: Show existing sites
+      debug:
+        msg: "Site {{ item.item.name }}: Already exists"
+      loop: "{{ site_check.results }}"
+      when: item.json.count > 0

@@ -1,0 +1,15 @@
+---
+netbox_url: https://vcfx1495.cloud.netboxapp.com
+netbox_token: bf14f68e820a2bb894299ed1314a098a416b12af
+
+sites:
+  - name: dub-st1
+    description: "Dublin DC Site 1"
+    location: "Classified"
+  - name: dub-st2
+    description: "Dublin DC Site 2"
+    location: "Classified"
+  - name: dub-st3
+    description: "Dublin DC Site 3"
+    location: "Classified"
+

@@ -13,10 +13,9 @@
       loop: "{{ enabled_features }}"
       tags: features
 
-    - name: Enable special features
-      cisco.nxos.nxos_config:
-        lines: "{{ special_features }}"
-      tags: features
+    - name: Enable nv overlay evpn
+      cisco.nxos.nxos_evpn_global:
+        nv_overlay_evpn: true
 
     - name: Set MTU on member interfaces to 9216
       cisco.nxos.nxos_config:

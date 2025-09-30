@@ -1,0 +1,308 @@
+ansible-playbook [core 2.16.3]
+  config file = /home/overlord/Desktop/nexus_evpn_lab/ansible.cfg
+  configured module search path = ['/home/overlord/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  ansible collection location = /home/overlord/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible-playbook
+  python version = 3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0] (/usr/bin/python3)
+  jinja version = 3.1.2
+  libyaml = True
+Using /home/overlord/Desktop/nexus_evpn_lab/ansible.cfg as config file
+Parsed /home/overlord/Desktop/nexus_evpn_lab/inventory inventory source with ini plugin
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: pb_build_netbox_db.yml ***********************************************
+1 plays in playbooks/pb_build_netbox_db.yml
+
+PLAY [Create NetBox Sites for Multi-Site EVPN/VXLAN Lab] ***********************
+
+TASK [Test NetBox API connectivity] ********************************************
+task path: /home/overlord/Desktop/nexus_evpn_lab/playbooks/pb_build_netbox_db.yml:25
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: overlord
+<127.0.0.1> EXEC /bin/sh -c 'echo ~overlord && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/overlord/.ansible/tmp `"&& mkdir "` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447 `" && echo ansible-tmp-1759103267.4783459-647113-70316488697447="` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447 `" ) && sleep 0'
+Using module file /usr/lib/python3/dist-packages/ansible/modules/uri.py
+<127.0.0.1> PUT /home/overlord/.ansible/tmp/ansible-local-647108shtxnuf8/tmpzuw3tykn TO /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447/AnsiballZ_uri.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447/ /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447/AnsiballZ_uri.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python3 /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447/AnsiballZ_uri.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/overlord/.ansible/tmp/ansible-tmp-1759103267.4783459-647113-70316488697447/ > /dev/null 2>&1 && sleep 0'
+ok: [localhost] => {
+    "allow": "GET, HEAD, OPTIONS",
+    "api_version": "4.3",
+    "changed": false,
+    "connection": "close",
+    "content_language": "en",
+    "content_length": "729",
+    "content_type": "application/json",
+    "cookies": {},
+    "cookies_string": "",
+    "cross_origin_opener_policy": "same-origin",
+    "date": "Sun, 28 Sep 2025 23:47:48 GMT",
+    "elapsed": 0,
+    "invocation": {
+        "module_args": {
+            "attributes": null,
+            "body": null,
+            "body_format": "raw",
+            "ca_path": null,
+            "ciphers": null,
+            "client_cert": null,
+            "client_key": null,
+            "creates": null,
+            "decompress": true,
+            "dest": null,
+            "follow_redirects": "safe",
+            "force": false,
+            "force_basic_auth": false,
+            "group": null,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Token bf14f68e820a2bb894299ed1314a098a416b12af"
+            },
+            "http_agent": "ansible-httpget",
+            "method": "GET",
+            "mode": null,
+            "owner": null,
+            "remote_src": false,
+            "removes": null,
+            "return_content": false,
+            "selevel": null,
+            "serole": null,
+            "setype": null,
+            "seuser": null,
+            "src": null,
+            "status_code": [
+                200
+            ],
+            "timeout": 30,
+            "unix_socket": null,
+            "unredirected_headers": [],
+            "unsafe_writes": false,
+            "url": "https://vcfx1495.cloud.netboxapp.com/api/",
+            "url_password": null,
+            "url_username": null,
+            "use_gssapi": false,
+            "use_netrc": true,
+            "use_proxy": true,
+            "validate_certs": false
+        }
+    },
+    "json": {
+        "circuits": "https://vcfx1495.cloud.netboxapp.com/api/circuits/",
+        "core": "https://vcfx1495.cloud.netboxapp.com/api/core/",
+        "dcim": "https://vcfx1495.cloud.netboxapp.com/api/dcim/",
+        "extras": "https://vcfx1495.cloud.netboxapp.com/api/extras/",
+        "ipam": "https://vcfx1495.cloud.netboxapp.com/api/ipam/",
+        "plugins": "https://vcfx1495.cloud.netboxapp.com/api/plugins/",
+        "status": "https://vcfx1495.cloud.netboxapp.com/api/status/",
+        "tenancy": "https://vcfx1495.cloud.netboxapp.com/api/tenancy/",
+        "users": "https://vcfx1495.cloud.netboxapp.com/api/users/",
+        "virtualization": "https://vcfx1495.cloud.netboxapp.com/api/virtualization/",
+        "vpn": "https://vcfx1495.cloud.netboxapp.com/api/vpn/",
+        "wireless": "https://vcfx1495.cloud.netboxapp.com/api/wireless/"
+    },
+    "msg": "OK (729 bytes)",
+    "redirected": false,
+    "referrer_policy": "same-origin",
+    "status": 200,
+    "strict_transport_security": "max-age=31536000; includeSubDomains",
+    "url": "https://vcfx1495.cloud.netboxapp.com/api/",
+    "vary": "Accept-Encoding, HX-Request, Accept-Language, Cookie, origin",
+    "x_content_type_options": "nosniff",
+    "x_controller": "nbl-ingress-getha9-public-1",
+    "x_frame_options": "SAMEORIGIN",
+    "x_request_id": "6ff84aeb-119d-4722-9453-67fceab9682a"
+}
+
+TASK [Display API response] ****************************************************
+task path: /home/overlord/Desktop/nexus_evpn_lab/playbooks/pb_build_netbox_db.yml:36
+ok: [localhost] => {
+    "msg": "NetBox API is accessible. Version: Unknown"
+}
+
+TASK [Create NetBox sites for EVPN/VXLAN lab] **********************************
+task path: /home/overlord/Desktop/nexus_evpn_lab/playbooks/pb_build_netbox_db.yml:40
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: overlord
+<127.0.0.1> EXEC /bin/sh -c 'echo ~overlord && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/overlord/.ansible/tmp `"&& mkdir "` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903 `" && echo ansible-tmp-1759103268.143802-647139-246310779053903="` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903 `" ) && sleep 0'
+Using module file /usr/lib/python3/dist-packages/ansible_collections/netbox/netbox/plugins/modules/netbox_site.py
+<127.0.0.1> PUT /home/overlord/.ansible/tmp/ansible-local-647108shtxnuf8/tmpglnia3av TO /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903/AnsiballZ_netbox_site.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903/ /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903/AnsiballZ_netbox_site.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python3 /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903/AnsiballZ_netbox_site.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/overlord/.ansible/tmp/ansible-tmp-1759103268.143802-647139-246310779053903/ > /dev/null 2>&1 && sleep 0'
+The full traceback is:
+  File "/tmp/ansible_netbox.netbox.netbox_site_payload_d3luws9d/ansible_netbox.netbox.netbox_site_payload.zip/ansible_collections/netbox/netbox/plugins/module_utils/netbox_utils.py", line 744, in _connect_netbox_api
+    self.version = nb.version
+                   ^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pynetbox/core/api.py", line 131, in version
+    ).get_version()
+      ^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pynetbox/core/query.py", line 197, in get_version
+    raise RequestError(req)
+failed: [localhost] (item={'name': 'dub-st1', 'description': 'Dublin DC Site 1', 'location': 'Classified', 'slug': 'dub-st1'}) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "cert": null,
+            "data": {
+                "asn": null,
+                "comments": "Multi-site EVPN/VXLAN lab environment",
+                "contact_email": null,
+                "contact_name": null,
+                "contact_phone": null,
+                "custom_fields": null,
+                "description": "Dublin DC Site 1",
+                "facility": null,
+                "latitude": null,
+                "longitude": null,
+                "name": "dub-st1",
+                "physical_address": null,
+                "region": null,
+                "shipping_address": null,
+                "site_group": null,
+                "slug": "dub-st1",
+                "status": null,
+                "tags": null,
+                "tenant": null,
+                "time_zone": null
+            },
+            "netbox_token": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+            "netbox_url": "https://vcfx1495.cloud.netboxapp.com",
+            "query_params": null,
+            "state": "present",
+            "validate_certs": false
+        }
+    },
+    "item": {
+        "description": "Dublin DC Site 1",
+        "location": "Classified",
+        "name": "dub-st1",
+        "slug": "dub-st1"
+    },
+    "msg": "Failed to establish connection to NetBox API"
+}
+<127.0.0.1> EXEC /bin/sh -c 'echo ~overlord && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/overlord/.ansible/tmp `"&& mkdir "` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914 `" && echo ansible-tmp-1759103268.6892273-647139-182833720175914="` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914 `" ) && sleep 0'
+Using module file /usr/lib/python3/dist-packages/ansible_collections/netbox/netbox/plugins/modules/netbox_site.py
+<127.0.0.1> PUT /home/overlord/.ansible/tmp/ansible-local-647108shtxnuf8/tmpxj82l3np TO /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914/AnsiballZ_netbox_site.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914/ /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914/AnsiballZ_netbox_site.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python3 /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914/AnsiballZ_netbox_site.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/overlord/.ansible/tmp/ansible-tmp-1759103268.6892273-647139-182833720175914/ > /dev/null 2>&1 && sleep 0'
+The full traceback is:
+  File "/tmp/ansible_netbox.netbox.netbox_site_payload_6qyiur1f/ansible_netbox.netbox.netbox_site_payload.zip/ansible_collections/netbox/netbox/plugins/module_utils/netbox_utils.py", line 744, in _connect_netbox_api
+    self.version = nb.version
+                   ^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pynetbox/core/api.py", line 131, in version
+    ).get_version()
+      ^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pynetbox/core/query.py", line 197, in get_version
+    raise RequestError(req)
+failed: [localhost] (item={'name': 'dub-st2', 'description': 'Dublin DC Site 2', 'location': 'Classified', 'slug': 'dub-st2'}) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "cert": null,
+            "data": {
+                "asn": null,
+                "comments": "Multi-site EVPN/VXLAN lab environment",
+                "contact_email": null,
+                "contact_name": null,
+                "contact_phone": null,
+                "custom_fields": null,
+                "description": "Dublin DC Site 2",
+                "facility": null,
+                "latitude": null,
+                "longitude": null,
+                "name": "dub-st2",
+                "physical_address": null,
+                "region": null,
+                "shipping_address": null,
+                "site_group": null,
+                "slug": "dub-st2",
+                "status": null,
+                "tags": null,
+                "tenant": null,
+                "time_zone": null
+            },
+            "netbox_token": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+            "netbox_url": "https://vcfx1495.cloud.netboxapp.com",
+            "query_params": null,
+            "state": "present",
+            "validate_certs": false
+        }
+    },
+    "item": {
+        "description": "Dublin DC Site 2",
+        "location": "Classified",
+        "name": "dub-st2",
+        "slug": "dub-st2"
+    },
+    "msg": "Failed to establish connection to NetBox API"
+}
+<127.0.0.1> EXEC /bin/sh -c 'echo ~overlord && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/overlord/.ansible/tmp `"&& mkdir "` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929 `" && echo ansible-tmp-1759103269.1496158-647139-160173509476929="` echo /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929 `" ) && sleep 0'
+Using module file /usr/lib/python3/dist-packages/ansible_collections/netbox/netbox/plugins/modules/netbox_site.py
+<127.0.0.1> PUT /home/overlord/.ansible/tmp/ansible-local-647108shtxnuf8/tmp985qzrds TO /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929/AnsiballZ_netbox_site.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929/ /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929/AnsiballZ_netbox_site.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python3 /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929/AnsiballZ_netbox_site.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/overlord/.ansible/tmp/ansible-tmp-1759103269.1496158-647139-160173509476929/ > /dev/null 2>&1 && sleep 0'
+The full traceback is:
+  File "/tmp/ansible_netbox.netbox.netbox_site_payload_orw4hsbt/ansible_netbox.netbox.netbox_site_payload.zip/ansible_collections/netbox/netbox/plugins/module_utils/netbox_utils.py", line 744, in _connect_netbox_api
+    self.version = nb.version
+                   ^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pynetbox/core/api.py", line 131, in version
+    ).get_version()
+      ^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pynetbox/core/query.py", line 197, in get_version
+    raise RequestError(req)
+failed: [localhost] (item={'name': 'dub-st3', 'description': 'Dublin DC Site 3', 'location': 'Classified', 'slug': 'dub-st3'}) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "cert": null,
+            "data": {
+                "asn": null,
+                "comments": "Multi-site EVPN/VXLAN lab environment",
+                "contact_email": null,
+                "contact_name": null,
+                "contact_phone": null,
+                "custom_fields": null,
+                "description": "Dublin DC Site 3",
+                "facility": null,
+                "latitude": null,
+                "longitude": null,
+                "name": "dub-st3",
+                "physical_address": null,
+                "region": null,
+                "shipping_address": null,
+                "site_group": null,
+                "slug": "dub-st3",
+                "status": null,
+                "tags": null,
+                "tenant": null,
+                "time_zone": null
+            },
+            "netbox_token": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+            "netbox_url": "https://vcfx1495.cloud.netboxapp.com",
+            "query_params": null,
+            "state": "present",
+            "validate_certs": false
+        }
+    },
+    "item": {
+        "description": "Dublin DC Site 3",
+        "location": "Classified",
+        "name": "dub-st3",
+        "slug": "dub-st3"
+    },
+    "msg": "Failed to establish connection to NetBox API"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+

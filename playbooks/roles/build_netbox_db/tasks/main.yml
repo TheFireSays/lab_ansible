@@ -1,0 +1,14 @@
+---
+- name: Create Netbox sites
+  netbox.netbox.netbox_site:
+    netbox_token: "{{ netbox_token }}"
+    netbox_url: "{{ netbox_url }}"
+    validate_certs: false 
+    data:
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+    state: "{{ netbox_state }}"
+  loop: "{{ sites }}"
+  run_once: true
+  tags: netbox_sites
+

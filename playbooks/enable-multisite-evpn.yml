@@ -1,0 +1,17 @@
+---
+
+- name: Enable multi-site VXLAN EVPN
+  hosts: superspines
+  gather_facts: false
+  vars:
+    SID1: 100
+    SID2: 200
+    SID3: 300
+
+    RID_int: "loopback 0"
+    BGW_int: "loopback 1"
+
+  tasks:
+    - name: Multi-site border gateway config
+      cisco.nxos.nxos_config:
+        
