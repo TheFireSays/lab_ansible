@@ -1,0 +1,56 @@
+---
+- name: Gather and store device information
+  hosts: all
+  gather_facts: false
+  
+  tasks:
+    - name: Gather NXOS facts
+      cisco.nxos.nxos_facts:
+        gather_subset:
+          - hardware
+          - default
+    
+    - name: Read existing host_vars file
+      slurp:
+        path: "./host_vars/{{ inventory_hostname }}.yml"
+      register: existing_vars
+      delegate_to: localhost
+      ignore_errors: true
+    
+    - name: Parse existing variables
+      set_fact:
+        host_vars_content: "{{ existing_vars.content | b64decode | from_yaml }}"
+      when: existing_vars is succeeded
+      delegate_to: localhost
+    
+    - name: Set empty dict if file doesn't exist
+      set_fact:
+        host_vars_content: {}
+      when: existing_vars is failed
+    
+    - name: Prepare device info dictionary
+      set_fact:
+        device_info:
+          dev_vendor: "Cisco"
+          dev_model: "{{ ansible_net_model }}"
+          os_version: "{{ ansible_net_version }}"
+          dev_serial: "{{ ansible_net_serialnum }}"
+    
+    - name: Update host_vars with device information
+      set_fact:
+        host_vars_content: "{{ host_vars_content | combine(device_info) }}"
+    
+    - name: Write updated host_vars file
+      copy:
+        content: "{{ host_vars_content | to_nice_yaml }}"
+        dest: "./host_vars/{{ inventory_hostname }}.yml"
+      delegate_to: localhost
+    
+    - name: Display collected device information
+      debug:
+        msg:
+          - "Device: {{ inventory_hostname }}"
+          - "Vendor: Cisco"
+          - "Model: {{ ansible_net_model }}"
+          - "OS Version: {{ ansible_net_version }}"
+          - "Serial: {{ ansible_net_serialnum }}"
